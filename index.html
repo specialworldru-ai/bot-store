@@ -22,7 +22,6 @@
             flex-direction: column;
         }
 
-        /* HEADER */
         .header {
             padding: 20px;
             text-align: center;
@@ -41,7 +40,6 @@
         }
         .logo span { font-weight: 400; opacity: 0.7; }
 
-        /* SEARCH */
         .search-bar { padding: 0 20px; margin-bottom: 20px; }
         .search-bar input {
             width: 100%;
@@ -59,7 +57,6 @@
         .search-bar input:focus { border-color: #666; }
         .search-bar input::placeholder { color: #555; }
 
-        /* GRID */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -70,20 +67,48 @@
             background: linear-gradient(145deg, #1e1e1e, #141414);
             border: 1px solid #2a2a2a;
             border-radius: 18px;
-            padding: 20px 16px;
+            padding: 16px;
             cursor: pointer;
             transition: all 0.2s;
+            position: relative;
+            min-height: 120px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 140px;
         }
         .product-card:active { transform: scale(0.96); border-color: #444; }
+
+        .product-fav {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            transition: transform 0.2s;
+            z-index: 2;
+        }
+        .product-fav:active { transform: scale(1.3); }
+        .product-fav svg {
+            width: 22px; height: 22px;
+            stroke: #555;
+            fill: none;
+            stroke-width: 1.8;
+            transition: all 0.2s;
+        }
+        .product-fav.active svg {
+            stroke: #ff3b3b;
+            fill: #ff3b3b;
+            filter: drop-shadow(0 0 6px rgba(255,59,59,0.5));
+        }
+
         .product-name {
             font-size: 15px;
             font-weight: 700;
             margin-bottom: 8px;
             line-height: 1.3;
+            padding-right: 30px;
         }
         .product-price {
             font-size: 18px;
@@ -100,8 +125,7 @@
             grid-column: 1 / -1;
         }
 
-        /* PROFILE */
-        .profile-page, .orders-page, .bot-detail-page, .admin-panel {
+        .profile-page, .orders-page, .bot-detail-page, .admin-panel, .favorites-page {
             padding: 0 20px;
             flex: 1;
         }
@@ -141,9 +165,14 @@
         .stat-label { font-size: 15px; font-weight: 500; }
         .stat-arrow { color: #555; font-size: 20px; }
 
-        /* ORDERS */
-        .orders-title { font-size: 24px; font-weight: 800; margin: 20px 0; }
+        .page-title { font-size: 24px; font-weight: 800; margin: 20px 0; }
+
         .orders-list { display: flex; flex-direction: column; gap: 12px; }
+        .favorites-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
         .order-card {
             background: #1e1e1e;
             border: 1px solid #2a2a2a;
@@ -162,8 +191,6 @@
         }
         .order-date { font-size: 12px; color: #666; margin-top: 6px; }
 
-        /* BOT DETAIL */
-        .bot-detail-page { display: flex; flex-direction: column; }
         .bot-detail-icon {
             width: 100px; height: 100px;
             background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
@@ -172,8 +199,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 48px;
             margin: 20px auto 20px;
+        }
+        .bot-detail-icon svg {
+            width: 50px; height: 50px;
+            stroke: #666;
+            fill: none;
+            stroke-width: 1.5;
         }
         .bot-detail-name {
             font-size: 26px;
@@ -225,7 +257,6 @@
             width: 100%;
         }
 
-        /* ADMIN */
         .admin-title {
             font-size: 24px;
             font-weight: 800;
@@ -273,11 +304,33 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 12px;
         }
-        .admin-bot-name { font-weight: 600; font-size: 14px; }
+        .admin-bot-info { flex: 1; }
+        .admin-bot-name { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
         .admin-bot-price { color: #888; font-size: 13px; }
+        .admin-btn-sm {
+            width: 36px; height: 36px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            background: #2a2a2a;
+            color: #fff;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .admin-btn-sm:active { transform: scale(0.9); }
+        .admin-btn-sm svg {
+            width: 18px; height: 18px;
+            stroke: #fff;
+            fill: none;
+            stroke-width: 2;
+        }
+        .admin-btn-sm.link-btn { border-color: #4CAF50; }
+        .admin-btn-sm.link-btn svg { stroke: #4CAF50; }
 
-        /* FOOTER */
         .footer {
             text-align: center;
             padding: 20px;
@@ -287,11 +340,9 @@
         }
         .footer a { color: #666; text-decoration: none; }
 
-        /* PAGES */
         .page { display: none; flex-direction: column; flex: 1; }
         .page.active { display: flex; }
 
-        /* NAV */
         .bottom-nav {
             position: sticky;
             bottom: 0;
@@ -310,7 +361,7 @@
             align-items: center;
             gap: 5px;
             cursor: pointer;
-            padding: 10px 32px;
+            padding: 10px 24px;
         }
         .nav-item svg {
             width: 24px; height: 24px;
@@ -324,7 +375,65 @@
         .nav-item.active svg { stroke: #fff; }
         .nav-item.active span { color: #fff; }
 
-        /* DESKTOP */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.85);
+            z-index: 200;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .modal-overlay.active { display: flex; }
+        .modal-box {
+            background: #1e1e1e;
+            border: 1px solid #2a2a2a;
+            border-radius: 20px;
+            padding: 24px;
+            max-width: 360px;
+            width: 100%;
+            text-align: center;
+        }
+        .modal-box h3 { font-size: 20px; margin-bottom: 12px; }
+        .modal-box p { color: #aaa; font-size: 14px; margin-bottom: 20px; line-height: 1.5; }
+        .modal-box a {
+            display: block;
+            padding: 14px;
+            background: linear-gradient(135deg, #fff, #ccc);
+            border-radius: 12px;
+            color: #000;
+            font-weight: 700;
+            text-decoration: none;
+            margin-bottom: 10px;
+        }
+        .modal-box button {
+            width: 100%;
+            padding: 14px;
+            background: transparent;
+            border: 1px solid #333;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .toast {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%) translateY(-100px);
+            background: #2a2a2a;
+            border: 1px solid #444;
+            border-radius: 12px;
+            padding: 12px 20px;
+            color: #fff;
+            font-size: 14px;
+            z-index: 300;
+            transition: transform 0.3s;
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); }
+
         @media (min-width: 768px) {
             .app { max-width: 100%; }
             .header, .search-bar, .products-grid, .footer { max-width: 1200px; margin: 0 auto; }
@@ -335,9 +444,10 @@
             .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); border-color: #444; }
             .footer { padding: 24px; margin-top: 40px; }
             .bottom-nav { max-width: 1200px; padding: 12px 40px; }
-            .nav-item { padding: 12px 40px; }
-            .profile-page, .orders-page, .admin-panel { max-width: 800px; margin: 0 auto; padding: 20px 40px; }
+            .nav-item { padding: 12px 32px; }
+            .profile-page, .orders-page, .admin-panel, .favorites-page { max-width: 800px; margin: 0 auto; padding: 20px 40px; }
             .bot-detail-page { max-width: 600px; margin: 0 auto; padding: 20px 40px; }
+            .favorites-grid { grid-template-columns: repeat(3, 1fr); }
         }
     </style>
 </head>
@@ -359,12 +469,23 @@
         <!-- ДЕТАЛИ БОТА -->
         <div class="page" id="page-bot-detail">
             <div class="bot-detail-page">
-                <div class="bot-detail-icon">🤖</div>
+                <div class="bot-detail-icon">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M12 8V4"/><circle cx="12" cy="3" r="1"/><circle cx="9" cy="14" r="1" fill="#666" stroke="none"/><circle cx="15" cy="14" r="1" fill="#666" stroke="none"/><path d="M9 18h6"/></svg>
+                </div>
                 <h1 class="bot-detail-name" id="detail-name"></h1>
                 <div class="bot-detail-price" id="detail-price"></div>
                 <div class="bot-detail-description" id="detail-description"></div>
                 <a href="https://t.me/z9hie" class="bot-detail-btn" target="_blank">Купить</a>
-                <button class="bot-detail-back" onclick="showPage('catalog')">← Назад</button>
+                <button class="bot-detail-back" onclick="showPage('catalog')">Назад</button>
+            </div>
+            <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
+        </div>
+
+        <!-- ИЗБРАННОЕ -->
+        <div class="page" id="page-favorites">
+            <div class="favorites-page">
+                <h2 class="page-title">Избранное</h2>
+                <div class="favorites-grid" id="favorites-grid"></div>
             </div>
             <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
         </div>
@@ -372,7 +493,7 @@
         <!-- ЗАКАЗЫ -->
         <div class="page" id="page-orders">
             <div class="orders-page">
-                <h2 class="orders-title">Мои заказы</h2>
+                <h2 class="page-title">Мои заказы</h2>
                 <div class="orders-list" id="orders-list"></div>
             </div>
             <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
@@ -388,8 +509,16 @@
                     <p class="profile-date">В магазине с 25.08.2026</p>
                 </div>
                 <div class="profile-stats">
+                    <div class="stat-item" onclick="showPage('favorites')">
+                        <span class="stat-label">Избранное</span>
+                        <span class="stat-arrow">›</span>
+                    </div>
                     <div class="stat-item" onclick="showPage('orders')">
                         <span class="stat-label">Мои заказы</span>
+                        <span class="stat-arrow">›</span>
+                    </div>
+                    <div class="stat-item" onclick="openSupport()">
+                        <span class="stat-label">Поддержка</span>
                         <span class="stat-arrow">›</span>
                     </div>
                     <div class="stat-item" id="admin-stat" style="display:none" onclick="showPage('admin')">
@@ -407,18 +536,17 @@
                 <h2 class="admin-title">Админ панель</h2>
                 <div class="admin-hint">
                     <strong>Как добавить бота:</strong><br><br>
-                    1. Открой файл <code>index.html</code> на GitHub<br>
-                    2. Нажми ️ (редактировать)<br>
-                    3. Найди массив <code>bots</code> в коде<br>
-                    4. Добавь нового бота по примеру:<br>
+                    1. Открой <code>index.html</code> на GitHub<br>
+                    2. Нажми редактировать<br>
+                    3. Найди массив <code>bots</code><br>
+                    4. Добавь бота:<br>
 <pre>{
   id: 3,
-  name: "Название бота",
+  name: "Название",
   price: 990,
-  description: "Полное описание бота..."
+  description: "Описание..."
 },</pre>
-                    5. Нажми <strong>Commit changes</strong><br><br>
-                    Через 1-2 минуты бот появится у всех!
+                    5. Commit changes — готово!
                 </div>
                 <div class="admin-bot-list" id="admin-bot-list"></div>
             </div>
@@ -431,6 +559,10 @@
                 <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><polyline points="9 21 9 14 15 14 15 21"/></svg>
                 <span>Главная</span>
             </div>
+            <div class="nav-item" data-page="favorites">
+                <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                <span>Избранное</span>
+            </div>
             <div class="nav-item" data-page="orders">
                 <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                 <span>Заказы</span>
@@ -442,6 +574,19 @@
         </nav>
     </div>
 
+    <!-- Модалка поддержки -->
+    <div class="modal-overlay" id="support-modal">
+        <div class="modal-box">
+            <h3>Поддержка</h3>
+            <p>Есть вопросы или проблемы? Напиши нам, мы поможем!</p>
+            <a href="https://t.me/number811" target="_blank">Написать в поддержку</a>
+            <button onclick="closeSupport()">Закрыть</button>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+
     <script>
         const tg = window.Telegram?.WebApp;
         if (tg) { tg.expand(); tg.ready(); }
@@ -449,7 +594,7 @@
         const ADMIN_ID = 5640325235;
 
         // ============================================
-        // 👇 СПИСОК БОТОВ — ДОБАВЛЯЙ СЮДА 👇
+        // СПИСОК БОТОВ — ДОБАВЛЯЙ СЮДА
         // ============================================
         const bots = [
             {
@@ -464,16 +609,39 @@
                 price: 1,
                 description: "Цена бота договарная. Всё обсудим в лс"
             }
-            // Добавляй новых ботов сюда по аналогии ↑
-            // Не забудь запятую после каждого объекта кроме последнего!
         ];
         // ============================================
-        //  КОНЕЦ СПИСКА БОТОВ 👆
+        // КОНЕЦ СПИСКА БОТОВ
         // ============================================
 
+        let favorites = JSON.parse(localStorage.getItem('qm_fav') || '[]');
         let orders = JSON.parse(localStorage.getItem('qm_orders') || '[]');
         const user = tg?.initDataUnsafe?.user || { first_name: 'Гость', username: 'guest', id: 0 };
         const isAdmin = user.id === ADMIN_ID;
+
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 2000);
+        }
+
+        function saveFav() { localStorage.setItem('qm_fav', JSON.stringify(favorites)); }
+        function saveOrders() { localStorage.setItem('qm_orders', JSON.stringify(orders)); }
+
+        function toggleFav(id) {
+            const i = favorites.indexOf(id);
+            if (i > -1) {
+                favorites.splice(i, 1);
+                showToast('Удалено из избранного');
+            } else {
+                favorites.push(id);
+                showToast('Добавлено в избранное');
+            }
+            saveFav();
+            renderProducts();
+            renderFavorites();
+        }
 
         function renderProducts() {
             const grid = document.getElementById('products-grid');
@@ -485,8 +653,34 @@
                 return;
             }
 
-            grid.innerHTML = filtered.map(b => `
+            grid.innerHTML = filtered.map(b => {
+                const isFav = favorites.includes(b.id);
+                return `
+                    <div class="product-card" onclick="showBotDetail(${b.id})">
+                        <button class="product-fav ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); toggleFav(${b.id})">
+                            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                        </button>
+                        <div class="product-name">${b.name}</div>
+                        <div class="product-price">${b.price} ₽</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderFavorites() {
+            const grid = document.getElementById('favorites-grid');
+            const favBots = bots.filter(b => favorites.includes(b.id));
+
+            if (favBots.length === 0) {
+                grid.innerHTML = '<div class="empty-state"><p>Нет избранных ботов</p></div>';
+                return;
+            }
+
+            grid.innerHTML = favBots.map(b => `
                 <div class="product-card" onclick="showBotDetail(${b.id})">
+                    <button class="product-fav active" onclick="event.stopPropagation(); toggleFav(${b.id})">
+                        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                    </button>
                     <div class="product-name">${b.name}</div>
                     <div class="product-price">${b.price} ₽</div>
                 </div>
@@ -531,15 +725,65 @@
                 container.innerHTML = '<div class="empty-state"><p>Нет ботов</p></div>';
                 return;
             }
-            container.innerHTML = '<h3 style="margin-bottom: 12px; font-size: 16px;">Текущие боты (' + bots.length + '):</h3>' +
+            container.innerHTML = '<h3 style="margin-bottom: 12px; font-size: 16px;">Боты (' + bots.length + '):</h3>' +
                 bots.map(b => `
                     <div class="admin-bot-item">
-                        <div>
+                        <div class="admin-bot-info">
                             <div class="admin-bot-name">${b.name}</div>
                             <div class="admin-bot-price">${b.price} ₽</div>
                         </div>
+                        <div class="admin-bot-actions">
+                            <button class="admin-btn-sm link-btn" onclick="copyOrderLink(${b.id})" title="Скопировать ссылку активации">
+                                <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
+                            </button>
+                        </div>
                     </div>
                 `).join('');
+        }
+
+        function copyOrderLink(botId) {
+            const bot = bots.find(b => b.id === botId);
+            if (!bot) return;
+            const baseUrl = window.location.origin + window.location.pathname;
+            const link = `${baseUrl}?order=${botId}`;
+
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(link).then(() => {
+                    showToast('Ссылка скопирована. Отправь её пользователю');
+                });
+            } else {
+                const ta = document.createElement('textarea');
+                ta.value = link;
+                document.body.appendChild(ta);
+                ta.select();
+                document.execCommand('copy');
+                document.body.removeChild(ta);
+                showToast('Ссылка скопирована');
+            }
+        }
+
+        function checkOrderActivation() {
+            const params = new URLSearchParams(window.location.search);
+            const orderId = params.get('order');
+            if (orderId) {
+                const botId = parseInt(orderId);
+                const bot = bots.find(b => b.id === botId);
+                if (bot) {
+                    const exists = orders.find(o => o.userId === user.id && o.botId === botId);
+                    if (!exists) {
+                        orders.push({
+                            userId: user.id,
+                            botId: botId,
+                            date: new Date().toLocaleDateString('ru-RU')
+                        });
+                        saveOrders();
+                        showToast(`"${bot.name}" добавлен в ваши заказы`);
+                    } else {
+                        showToast('Этот бот уже в ваших заказах');
+                    }
+                    window.history.replaceState({}, '', window.location.pathname);
+                }
+            }
         }
 
         function showPage(name) {
@@ -549,6 +793,7 @@
             const navItem = document.querySelector(`.nav-item[data-page="${name}"]`);
             if (navItem) navItem.classList.add('active');
             if (name === 'orders') renderOrders();
+            if (name === 'favorites') renderFavorites();
             if (name === 'admin') renderAdminBots();
             window.scrollTo(0, 0);
         }
@@ -559,12 +804,22 @@
 
         document.getElementById('search-input').addEventListener('input', renderProducts);
 
-        // Профиль
+        function openSupport() {
+            document.getElementById('support-modal').classList.add('active');
+        }
+        function closeSupport() {
+            document.getElementById('support-modal').classList.remove('active');
+        }
+        document.getElementById('support-modal').addEventListener('click', (e) => {
+            if (e.target === e.currentTarget) closeSupport();
+        });
+
         document.getElementById('profile-name').textContent = user.first_name || 'Пользователь';
         document.getElementById('profile-username').textContent = '@' + (user.username || 'user');
         document.getElementById('profile-avatar').textContent = (user.first_name || '?')[0].toUpperCase();
         if (isAdmin) document.getElementById('admin-stat').style.display = 'flex';
 
+        checkOrderActivation();
         renderProducts();
     </script>
 </body>
