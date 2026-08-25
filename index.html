@@ -137,7 +137,6 @@
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             padding: 0 20px;
-            flex: 1;
         }
 
         .product-card {
@@ -161,7 +160,6 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            position: relative;
         }
         .product-image img {
             width: 100%;
@@ -213,6 +211,8 @@
         /* ===== ПРОФИЛЬ ===== */
         .profile-page {
             padding: 0 20px;
+            display: flex;
+            flex-direction: column;
             flex: 1;
         }
 
@@ -268,12 +268,13 @@
         .stat-item:last-child { border-bottom: none; }
         .stat-item:active { background: #2a2a2a; }
         .stat-label { font-size: 15px; font-weight: 500; }
-        .stat-value { color: #888; font-size: 14px; }
-        .stat-arrow { color: #555; font-size: 20px; margin-left: 8px; }
+        .stat-arrow { color: #555; font-size: 20px; }
 
         /* ===== АДМИН ПАНЕЛЬ ===== */
         .admin-panel {
             padding: 0 20px;
+            display: flex;
+            flex-direction: column;
             flex: 1;
         }
         .admin-title {
@@ -305,9 +306,6 @@
             transform: scale(0.98);
             border-color: #555;
         }
-        .admin-btn .icon {
-            font-size: 24px;
-        }
 
         .admin-products {
             margin-top: 24px;
@@ -338,22 +336,10 @@
             height: 100%;
             object-fit: cover;
         }
-        .admin-product-info {
-            flex: 1;
-        }
-        .admin-product-name {
-            font-size: 14px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-        .admin-product-price {
-            font-size: 13px;
-            color: #888;
-        }
-        .admin-product-actions {
-            display: flex;
-            gap: 8px;
-        }
+        .admin-product-info { flex: 1; }
+        .admin-product-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
+        .admin-product-price { font-size: 13px; color: #888; }
+        .admin-product-actions { display: flex; gap: 8px; }
         .admin-action-btn {
             width: 36px;
             height: 36px;
@@ -375,18 +361,13 @@
         .modal-overlay {
             display: none;
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             background: rgba(0,0,0,0.8);
             z-index: 200;
             align-items: flex-end;
             justify-content: center;
         }
-        .modal-overlay.active {
-            display: flex;
-        }
+        .modal-overlay.active { display: flex; }
         .modal {
             background: linear-gradient(180deg, #1e1e1e, #141414);
             border-radius: 24px 24px 0 0;
@@ -403,8 +384,7 @@
             to { transform: translateY(0); }
         }
         .modal-handle {
-            width: 40px;
-            height: 4px;
+            width: 40px; height: 4px;
             background: #444;
             border-radius: 2px;
             margin: 0 auto 20px;
@@ -414,9 +394,7 @@
             font-weight: 700;
             margin-bottom: 20px;
         }
-        .form-group {
-            margin-bottom: 16px;
-        }
+        .form-group { margin-bottom: 16px; }
         .form-group label {
             display: block;
             font-size: 13px;
@@ -440,16 +418,9 @@
         }
         .form-group input:focus,
         .form-group textarea:focus,
-        .form-group select:focus {
-            border-color: #666;
-        }
-        .form-group textarea {
-            resize: vertical;
-            min-height: 80px;
-        }
-        .form-group input[type="file"] {
-            padding: 10px;
-        }
+        .form-group select:focus { border-color: #666; }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+        .form-group input[type="file"] { padding: 10px; }
         .modal-btn {
             width: 100%;
             padding: 16px;
@@ -478,6 +449,7 @@
             font-size: 12px;
             font-weight: 500;
             letter-spacing: 0.5px;
+            margin-top: auto;
         }
         .footer a {
             color: #666;
@@ -489,43 +461,65 @@
             display: none;
             flex-direction: column;
             flex: 1;
+            min-height: 0;
         }
-        .page.active {
-            display: flex;
-        }
+        .page.active { display: flex; }
 
-        /* ===== НАВИГАЦИЯ ===== */
+        /* ===== НАВИГАЦИЯ (переработана) ===== */
         .bottom-nav {
             position: sticky;
             bottom: 0;
-            background: linear-gradient(180deg, rgba(10,10,10,0.9) 0%, rgba(10,10,10,0.98) 100%);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-top: 1px solid #1e1e1e;
+            background: rgba(10, 10, 10, 0.7);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border-top: 1px solid rgba(255,255,255,0.06);
             display: flex;
-            justify-content: space-around;
-            padding: 10px 0;
-            padding-bottom: max(10px, env(safe-area-inset-bottom));
+            justify-content: center;
+            gap: 0;
+            padding: 8px 20px;
+            padding-bottom: max(8px, env(safe-area-inset-bottom));
             z-index: 100;
         }
+
         .nav-item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 4px;
+            gap: 5px;
             cursor: pointer;
-            padding: 6px 16px;
+            padding: 10px 32px;
             transition: all 0.2s;
-            flex: 1;
+            position: relative;
         }
-        .nav-icon { font-size: 22px; }
-        .nav-item span:last-child {
-            font-size: 10px;
-            color: #555;
+
+        .nav-item svg {
+            width: 24px;
+            height: 24px;
+            stroke: #555;
+            fill: none;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: all 0.2s;
+        }
+
+        .nav-item span {
+            font-size: 11px;
             font-weight: 600;
+            color: #555;
             transition: color 0.2s;
         }
-        .nav-item.active span:last-child { color: #fff; }
+
+        .nav-item.active svg {
+            stroke: #fff;
+        }
+        .nav-item.active span {
+            color: #fff;
+        }
+
+        .nav-item:active {
+            transform: scale(0.95);
+        }
 
         /* ===== ДЕСКТОП ===== */
         @media (min-width: 768px) {
@@ -541,7 +535,7 @@
             }
         }
 
-        /* ===== УВЕДОМЛЕНИЕ ===== */
+        /* ===== TOAST ===== */
         .toast {
             position: fixed;
             top: 20px;
@@ -583,7 +577,7 @@
                     <span>ВСЕ</span>
                 </div>
                 <div class="category" data-category="chat">
-                    <div class="category-icon"></div>
+                    <div class="category-icon">💬</div>
                     <span>CHAT</span>
                 </div>
                 <div class="category" data-category="moderation">
@@ -591,7 +585,7 @@
                     <span>MODERATION</span>
                 </div>
                 <div class="category" data-category="music">
-                    <div class="category-icon">🎵</div>
+                    <div class="category-icon"></div>
                     <span>MUSIC</span>
                 </div>
                 <div class="category" data-category="game">
@@ -599,7 +593,7 @@
                     <span>GAME</span>
                 </div>
                 <div class="category" data-category="admin">
-                    <div class="category-icon">⚙️</div>
+                    <div class="category-icon">️</div>
                     <span>ADMIN</span>
                 </div>
             </div>
@@ -621,45 +615,50 @@
 
                 <div class="profile-stats">
                     <div class="stat-item" id="admin-stat" style="display:none" onclick="showPage('admin')">
-                        <span class="stat-label">⚙️ Админ панель</span>
+                        <span class="stat-label">️ Админ панель</span>
                         <span class="stat-arrow">›</span>
                     </div>
                 </div>
-
-                <div class="footer" style="margin-top: 24px;">create by <a href="https://t.me/z9hie">@z9hie</a></div>
             </div>
+
+            <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
         </div>
 
         <!-- ========== АДМИН ПАНЕЛЬ ========== -->
         <div class="page" id="page-admin">
             <div class="admin-panel">
-                <h2 class="admin-title">️ Админ панель</h2>
+                <h2 class="admin-title">Админ панель</h2>
 
                 <button class="admin-btn" onclick="openAddModal()">
-                    <span class="icon">➕</span>
-                    <span>Добавить бота</span>
+                    <span>➕ Добавить бота</span>
                 </button>
 
                 <div class="admin-products" id="admin-products"></div>
-
-                <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
             </div>
+
+            <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
         </div>
 
         <!-- ========== НАВИГАЦИЯ ========== -->
         <nav class="bottom-nav">
             <div class="nav-item active" data-page="catalog">
-                <span class="nav-icon">🏠</span>
+                <svg viewBox="0 0 24 24">
+                    <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
+                    <polyline points="9 21 9 14 15 14 15 21"/>
+                </svg>
                 <span>Главная</span>
             </div>
             <div class="nav-item" data-page="profile">
-                <span class="nav-icon"></span>
+                <svg viewBox="0 0 24 24">
+                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
+                    <circle cx="12" cy="7" r="4"/>
+                </svg>
                 <span>Профиль</span>
             </div>
         </nav>
     </div>
 
-    <!-- ===== МОДАЛКА ДОБАВЛЕНИЯ/РЕДАКТИРОВАНИЯ ===== -->
+    <!-- ===== МОДАЛКА ===== -->
     <div class="modal-overlay" id="modal-overlay">
         <div class="modal">
             <div class="modal-handle"></div>
@@ -678,11 +677,11 @@
             <div class="form-group">
                 <label>Категория</label>
                 <select id="bot-category">
-                    <option value="chat">💬 Chat</option>
-                    <option value="moderation">🛡️ Moderation</option>
-                    <option value="music">🎵 Music</option>
-                    <option value="game">🎮 Game</option>
-                    <option value="admin">⚙️ Admin</option>
+                    <option value="chat">Chat</option>
+                    <option value="moderation">Moderation</option>
+                    <option value="music">Music</option>
+                    <option value="game">Game</option>
+                    <option value="admin">Admin</option>
                 </select>
             </div>
 
@@ -705,7 +704,6 @@
     <div class="toast" id="toast"></div>
 
     <script>
-        // ===== TELEGRAM INIT =====
         const tg = window.Telegram?.WebApp;
         if (tg) {
             tg.expand();
@@ -715,7 +713,6 @@
 
         const ADMIN_ID = 5640325235;
 
-        // ===== ДАННЫЕ =====
         let bots = JSON.parse(localStorage.getItem('qm_bots') || '[]');
         let currentCategory = 'all';
         let editingBotId = null;
@@ -723,7 +720,6 @@
         const user = tg?.initDataUnsafe?.user || { first_name: 'Гость', username: 'guest', id: 0 };
         const isAdmin = user.id === ADMIN_ID;
 
-        // ===== TOAST =====
         function showToast(msg) {
             const t = document.getElementById('toast');
             t.textContent = msg;
@@ -731,12 +727,10 @@
             setTimeout(() => t.classList.remove('show'), 2000);
         }
 
-        // ===== СОХРАНЕНИЕ =====
         function saveBots() {
             localStorage.setItem('qm_bots', JSON.stringify(bots));
         }
 
-        // ===== РЕНДЕР ТОВАРОВ =====
         function renderProducts() {
             const grid = document.getElementById('products-grid');
             const search = document.getElementById('search-input').value.toLowerCase();
@@ -748,7 +742,7 @@
             });
 
             if (filtered.length === 0) {
-                grid.innerHTML = '<div class="empty-state"><div class="emoji">🤖</div><p>Боты пока не добавлены</p></div>';
+                grid.innerHTML = '<div class="empty-state"><div class="emoji"></div><p>Боты пока не добавлены</p></div>';
                 return;
             }
 
@@ -765,27 +759,22 @@
             `).join('');
         }
 
-        // ===== ДЕТАЛИ БОТА =====
         function showBotDetail(id) {
             const bot = bots.find(b => b.id === id);
             if (!bot) return;
-
             if (tg?.showPopup) {
                 tg.showPopup({
                     title: bot.name,
                     message: `${bot.description || 'Нет описания'}\n\nЦена: ${bot.price} ₽`,
                     buttons: [{ type: 'default', text: 'Купить' }, { type: 'cancel' }]
                 }, (btn) => {
-                    if (btn === 'default') {
-                        showToast('🛒 Функция покупки скоро!');
-                    }
+                    if (btn === 'default') showToast('🛒 Функция покупки скоро!');
                 });
             } else {
                 alert(`${bot.name}\n\n${bot.description || 'Нет описания'}\n\nЦена: ${bot.price} ₽`);
             }
         }
 
-        // ===== РЕНДЕР АДМИНКИ =====
         function renderAdminProducts() {
             const container = document.getElementById('admin-products');
             if (bots.length === 0) {
@@ -795,7 +784,7 @@
             container.innerHTML = bots.map(b => `
                 <div class="admin-product-item">
                     <div class="admin-product-thumb">
-                        ${b.image ? `<img src="${b.image}">` : '🤖'}
+                        ${b.image ? `<img src="${b.image}">` : ''}
                     </div>
                     <div class="admin-product-info">
                         <div class="admin-product-name">${b.name}</div>
@@ -809,7 +798,6 @@
             `).join('');
         }
 
-        // ===== МОДАЛКА =====
         function openAddModal() {
             editingBotId = null;
             document.getElementById('modal-title').textContent = 'Добавить бота';
@@ -867,10 +855,7 @@
                 } else {
                     bots.push({
                         id: Date.now(),
-                        name,
-                        price,
-                        category,
-                        description,
+                        name, price, category, description,
                         image: imageData || null
                     });
                     showToast('✅ Бот добавлен');
@@ -896,11 +881,10 @@
                 saveBots();
                 renderProducts();
                 renderAdminProducts();
-                showToast('️ Бот удалён');
+                showToast('🗑️ Бот удалён');
             }
         }
 
-        // ===== КАТЕГОРИИ =====
         document.querySelectorAll('.category').forEach(cat => {
             cat.addEventListener('click', () => {
                 document.querySelectorAll('.category').forEach(c => c.classList.remove('active'));
@@ -912,15 +896,12 @@
 
         document.getElementById('search-input').addEventListener('input', renderProducts);
 
-        // ===== НАВИГАЦИЯ =====
         function showPage(name) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById('page-' + name).classList.add('active');
-
             const navItem = document.querySelector(`.nav-item[data-page="${name}"]`);
             if (navItem) navItem.classList.add('active');
-
             if (name === 'admin') renderAdminProducts();
             window.scrollTo(0, 0);
         }
@@ -929,23 +910,19 @@
             item.addEventListener('click', () => showPage(item.dataset.page));
         });
 
-        // ===== ПРОФИЛЬ =====
         function updateProfile() {
             document.getElementById('profile-name').textContent = user.first_name || 'Пользователь';
             document.getElementById('profile-username').textContent = '@' + (user.username || 'user');
             document.getElementById('profile-avatar').textContent = (user.first_name || '?')[0].toUpperCase();
-
             if (isAdmin) {
                 document.getElementById('admin-stat').style.display = 'flex';
             }
         }
 
-        // ===== ЗАКРЫТИЕ МОДАЛКИ ПО КЛИКУ ВНЕ =====
         document.getElementById('modal-overlay').addEventListener('click', (e) => {
             if (e.target === e.currentTarget) closeModal();
         });
 
-        // ===== СТАРТ =====
         updateProfile();
         renderProducts();
     </script>
