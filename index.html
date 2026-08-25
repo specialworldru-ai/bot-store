@@ -4,20 +4,423 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Bot Store</title>
-    <link rel="stylesheet" href="styles.css">
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .app {
+            max-width: 480px;
+            margin: 0 auto;
+            min-height: 100vh;
+            padding: 16px;
+            padding-bottom: 90px;
+            position: relative;
+        }
+
+        /* ===== СТРАНИЦЫ ===== */
+        .page {
+            display: none;
+            animation: fadeIn 0.25s ease;
+        }
+        .page.active { display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ===== ПОИСК ===== */
+        .search-bar {
+            margin-bottom: 20px;
+            margin-top: 8px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 14px 18px 14px 44px;
+            background: #1c1c1e;
+            border: 1px solid #2c2c2e;
+            border-radius: 14px;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: border-color 0.2s;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: 14px center;
+        }
+        .search-bar input:focus {
+            border-color: #4CAF50;
+        }
+        .search-bar input::placeholder { color: #666; }
+
+        /* ===== КАТЕГОРИИ ===== */
+        .categories {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 8px;
+            margin-bottom: 20px;
+            scrollbar-width: none;
+        }
+        .categories::-webkit-scrollbar { display: none; }
+
+        .category {
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .category:active { transform: scale(0.95); }
+
+        .category-icon {
+            width: 58px;
+            height: 58px;
+            background: #fff;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            transition: all 0.2s;
+        }
+        .category span {
+            font-size: 10px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+        .category.active .category-icon {
+            background: #4CAF50;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+        }
+
+        /* ===== СЕТКА ТОВАРОВ ===== */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+
+        .product-card {
+            background: #1c1c1e;
+            border: 1px solid #2c2c2e;
+            border-radius: 16px;
+            padding: 14px;
+            position: relative;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+        .product-card:active { transform: scale(0.97); }
+
+        .product-favorite {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0,0,0,0.4);
+            border: none;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .product-favorite.active {
+            background: rgba(255, 71, 87, 0.2);
+        }
+
+        .product-icon {
+            width: 70px;
+            height: 70px;
+            margin: 8px auto 10px;
+            background: #2c2c2e;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+        }
+
+        .product-name {
+            font-size: 14px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .product-price {
+            font-size: 15px;
+            font-weight: 700;
+            color: #4CAF50;
+        }
+        .btn-buy {
+            background: #4CAF50;
+            border: none;
+            border-radius: 10px;
+            width: 36px;
+            height: 36px;
+            color: #fff;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+        .btn-buy:active { transform: scale(0.9); }
+        .btn-buy:disabled {
+            background: #555;
+            cursor: not-allowed;
+        }
+
+        /* ===== ПРОФИЛЬ ===== */
+        .profile-header {
+            text-align: center;
+            padding: 24px 0 16px;
+        }
+        .profile-avatar {
+            width: 88px;
+            height: 88px;
+            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 38px;
+            font-weight: 700;
+            margin: 0 auto 16px;
+            box-shadow: 0 8px 24px rgba(76, 175, 80, 0.3);
+        }
+        .profile-header h2 {
+            font-size: 22px;
+            margin-bottom: 4px;
+        }
+        .profile-header .username {
+            color: #888;
+            font-size: 14px;
+        }
+        .profile-date {
+            color: #666;
+            font-size: 13px;
+            margin-top: 8px;
+        }
+
+        .balance-card {
+            background: #1c1c1e;
+            border: 1px solid #2c2c2e;
+            border-radius: 16px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .balance-label {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 4px;
+        }
+        .balance-amount {
+            font-size: 26px;
+            font-weight: 700;
+        }
+        .btn-deposit {
+            background: #4CAF50;
+            border: none;
+            border-radius: 12px;
+            padding: 14px 24px;
+            color: #fff;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+        }
+        .btn-deposit:active { transform: scale(0.95); }
+
+        .profile-stats {
+            background: #1c1c1e;
+            border: 1px solid #2c2c2e;
+            border-radius: 16px;
+            overflow: hidden;
+            margin-top: 16px;
+        }
+        .stat-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 20px;
+            border-bottom: 1px solid #2c2c2e;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .stat-item:last-child { border-bottom: none; }
+        .stat-item:active { background: #2c2c2e; }
+        .stat-label { font-size: 15px; }
+        .stat-value { color: #888; font-size: 14px; }
+        .stat-arrow { color: #666; font-size: 20px; margin-left: 8px; }
+
+        /* ===== ЗАКАЗЫ ===== */
+        .orders-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .order-item {
+            background: #1c1c1e;
+            border: 1px solid #2c2c2e;
+            border-radius: 14px;
+            padding: 16px;
+        }
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .order-name { font-size: 15px; font-weight: 600; }
+        .order-status {
+            background: #4CAF50;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        .order-details {
+            display: flex;
+            justify-content: space-between;
+            color: #888;
+            font-size: 13px;
+        }
+
+        /* ===== ПУСТОЕ СОСТОЯНИЕ ===== */
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+            grid-column: 1 / -1;
+        }
+        .empty-state .emoji {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        /* ===== ЗАГОЛОВКИ ===== */
+        .page-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            margin-top: 8px;
+        }
+
+        /* ===== НИЖНЯЯ НАВИГАЦИЯ ===== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: #141416;
+            border-top: 1px solid #2c2c2e;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            padding-bottom: max(10px, env(safe-area-inset-bottom));
+            z-index: 100;
+        }
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            cursor: pointer;
+            padding: 6px 12px;
+            transition: all 0.2s;
+            flex: 1;
+        }
+        .nav-icon { font-size: 22px; }
+        .nav-item span:last-child {
+            font-size: 10px;
+            color: #666;
+            font-weight: 500;
+        }
+        .nav-item.active span:last-child { color: #4CAF50; }
+        .nav-item.active .nav-icon { filter: brightness(1.3); }
+
+        /* ===== ДЕСКТОП ===== */
+        @media (min-width: 768px) {
+            body {
+                background: #050505;
+                display: flex;
+                justify-content: center;
+            }
+            .app {
+                border-left: 1px solid #1c1c1e;
+                border-right: 1px solid #1c1c1e;
+                box-shadow: 0 0 60px rgba(0,0,0,0.5);
+            }
+            .bottom-nav {
+                border-radius: 20px 20px 0 0;
+            }
+        }
+
+        /* ===== СКРЫТИЕ НА ДЕСКТОПЕ (опционально) ===== */
+        /* Если хочешь ТОЛЬКО мобильные — раскомментируй: */
+        /*
+        @media (min-width: 768px) {
+            .app::before {
+                content: '📱 Откройте в Telegram на телефоне';
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                font-size: 18px;
+                color: #888;
+                text-align: center;
+                padding: 20px;
+            }
+            .app > * { display: none !important; }
+        }
+        */
+    </style>
 </head>
 <body>
     <div class="app">
-        <!-- Главная страница / Каталог -->
+
+        <!-- ========== КАТАЛОГ ========== -->
         <div class="page active" id="page-catalog">
             <div class="search-bar">
                 <input type="text" placeholder="Поиск ботов..." id="search-input">
             </div>
-            
-            <div class="categories">
+
+            <div class="categories" id="categories">
                 <div class="category active" data-category="all">
-                    <div class="category-icon"></div>
+                    <div class="category-icon">🤖</div>
                     <span>ВСЕ</span>
                 </div>
                 <div class="category" data-category="chat">
@@ -29,7 +432,7 @@
                     <span>MODERATION</span>
                 </div>
                 <div class="category" data-category="music">
-                    <div class="category-icon"></div>
+                    <div class="category-icon">🎵</div>
                     <span>MUSIC</span>
                 </div>
                 <div class="category" data-category="game">
@@ -37,64 +440,62 @@
                     <span>GAME</span>
                 </div>
                 <div class="category" data-category="admin">
-                    <div class="category-icon">️</div>
+                    <div class="category-icon">⚙️</div>
                     <span>ADMIN</span>
                 </div>
             </div>
 
-            <div class="products-grid" id="products-grid">
-                <!-- Товары будут добавлены через JS -->
-            </div>
+            <div class="products-grid" id="products-grid"></div>
         </div>
 
-        <!-- Избранное -->
+        <!-- ========== ИЗБРАННОЕ ========== -->
         <div class="page" id="page-favorites">
-            <h2>Избранное</h2>
-            <div class="products-grid" id="favorites-grid">
-                <div class="empty-state">У вас пока нет избранных ботов</div>
-            </div>
+            <h2 class="page-title">❤️ Избранное</h2>
+            <div class="products-grid" id="favorites-grid"></div>
         </div>
 
-        <!-- Заказы -->
+        <!-- ========== ЗАКАЗЫ ========== -->
         <div class="page" id="page-orders">
-            <h2>Мои заказы</h2>
-            <div class="orders-list" id="orders-list">
-                <div class="empty-state">У вас пока нет заказов</div>
-            </div>
+            <h2 class="page-title">📦 Мои заказы</h2>
+            <div class="orders-list" id="orders-list"></div>
         </div>
 
-        <!-- Профиль -->
+        <!-- ========== ПРОФИЛЬ ========== -->
         <div class="page" id="page-profile">
             <div class="profile-header">
-                <div class="profile-avatar" id="profile-avatar">Z</div>
+                <div class="profile-avatar" id="profile-avatar">?</div>
                 <h2 id="profile-name">Пользователь</h2>
-                <p id="profile-username">@username</p>
+                <p class="username" id="profile-username">@user</p>
                 <p class="profile-date" id="profile-date">В магазине с 25.08.2026</p>
             </div>
 
             <div class="balance-card">
-                <div class="balance-info">
-                    <span>Баланс:</span>
-                    <span class="balance-amount" id="balance-amount">0 ₽</span>
+                <div>
+                    <div class="balance-label">Баланс</div>
+                    <div class="balance-amount" id="balance-amount">0 ₽</div>
                 </div>
                 <button class="btn-deposit" id="btn-deposit">Пополнить</button>
             </div>
 
             <div class="profile-stats">
                 <div class="stat-item" onclick="showPage('orders')">
-                    <span class="stat-label">Мои заказы</span>
-                    <span class="stat-value" id="orders-count">0 заказов</span>
-                    <span class="stat-arrow">›</span>
+                    <span class="stat-label"> Мои заказы</span>
+                    <div>
+                        <span class="stat-value" id="orders-count">0 заказов</span>
+                        <span class="stat-arrow">›</span>
+                    </div>
                 </div>
                 <div class="stat-item" onclick="showPage('favorites')">
-                    <span class="stat-label">Избранное</span>
-                    <span class="stat-value" id="favorites-count">0 ботов</span>
-                    <span class="stat-arrow">›</span>
+                    <span class="stat-label">❤️ Избранное</span>
+                    <div>
+                        <span class="stat-value" id="favorites-count">0 ботов</span>
+                        <span class="stat-arrow">›</span>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- Нижняя навигация -->
+        <!-- ========== НАВИГАЦИЯ ========== -->
         <nav class="bottom-nav">
             <div class="nav-item active" data-page="catalog">
                 <span class="nav-icon">🏠</span>
@@ -105,16 +506,227 @@
                 <span>Избранное</span>
             </div>
             <div class="nav-item" data-page="orders">
-                <span class="nav-icon"></span>
+                <span class="nav-icon">📦</span>
                 <span>Заказы</span>
             </div>
             <div class="nav-item" data-page="profile">
-                <span class="nav-icon">👤</span>
+                <span class="nav-icon"></span>
                 <span>Профиль</span>
             </div>
         </nav>
     </div>
 
-    <script src="app.js"></script>
+    <script>
+        // ===== TELEGRAM INIT =====
+        const tg = window.Telegram?.WebApp;
+        if (tg) {
+            tg.expand();
+            tg.ready();
+            try { tg.enableClosingConfirmation(); } catch(e) {}
+        }
+
+        // ===== ДАННЫЕ БОТОВ =====
+        const bots = [
+            { id: 1, name: 'ChatBot Pro', category: 'chat', price: 990, icon: '💬' },
+            { id: 2, name: 'Auto Moderator', category: 'moderation', price: 1490, icon: '🛡️' },
+            { id: 3, name: 'Music Bot', category: 'music', price: 2990, icon: '🎵' },
+            { id: 4, name: 'Game Bot', category: 'game', price: 1990, icon: '🎮' },
+            { id: 5, name: 'Admin Bot', category: 'admin', price: 3490, icon: '⚙️' },
+            { id: 6, name: 'Welcome Bot', category: 'chat', price: 790, icon: '👋' },
+            { id: 7, name: 'Anti-Spam', category: 'moderation', price: 1290, icon: '🚫' },
+            { id: 8, name: 'Radio Bot', category: 'music', price: 2490, icon: '📻' },
+        ];
+
+        // ===== СОСТОЯНИЕ =====
+        let state = {
+            currentCategory: 'all',
+            favorites: JSON.parse(localStorage.getItem('bs_fav') || '[]'),
+            orders: JSON.parse(localStorage.getItem('bs_orders') || '[]'),
+            balance: parseInt(localStorage.getItem('bs_balance') || '0'),
+            user: tg?.initDataUnsafe?.user || { first_name: 'Гость', username: 'guest' }
+        };
+
+        function save() {
+            localStorage.setItem('bs_fav', JSON.stringify(state.favorites));
+            localStorage.setItem('bs_orders', JSON.stringify(state.orders));
+            localStorage.setItem('bs_balance', state.balance);
+        }
+
+        // ===== РЕНДЕР ТОВАРОВ =====
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            const search = document.getElementById('search-input').value.toLowerCase();
+
+            const filtered = bots.filter(b => {
+                const cat = state.currentCategory === 'all' || b.category === state.currentCategory;
+                const s = b.name.toLowerCase().includes(search);
+                return cat && s;
+            });
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '<div class="empty-state"><div class="emoji">🔍</div>Ничего не найдено</div>';
+                return;
+            }
+
+            grid.innerHTML = filtered.map(b => {
+                const isFav = state.favorites.includes(b.id);
+                const isBought = state.orders.some(o => o.botId === b.id);
+                return `
+                    <div class="product-card">
+                        <button class="product-favorite ${isFav ? 'active' : ''}" onclick="toggleFav(${b.id})">
+                            ${isFav ? '❤️' : '🤍'}
+                        </button>
+                        <div class="product-icon">${b.icon}</div>
+                        <div class="product-name">${b.name}</div>
+                        <div class="product-footer">
+                            <div class="product-price">${b.price} ₽</div>
+                            <button class="btn-buy" onclick="buyBot(${b.id})" ${isBought ? 'disabled' : ''}>
+                                ${isBought ? '✓' : '🛒'}
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderFavorites() {
+            const grid = document.getElementById('favorites-grid');
+            const favs = bots.filter(b => state.favorites.includes(b.id));
+
+            if (favs.length === 0) {
+                grid.innerHTML = '<div class="empty-state"><div class="emoji">💔</div>Добавьте ботов в избранное</div>';
+                return;
+            }
+
+            grid.innerHTML = favs.map(b => `
+                <div class="product-card">
+                    <button class="product-favorite active" onclick="toggleFav(${b.id})">❤️</button>
+                    <div class="product-icon">${b.icon}</div>
+                    <div class="product-name">${b.name}</div>
+                    <div class="product-footer">
+                        <div class="product-price">${b.price} ₽</div>
+                        <button class="btn-buy" onclick="buyBot(${b.id})">🛒</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderOrders() {
+            const list = document.getElementById('orders-list');
+            if (state.orders.length === 0) {
+                list.innerHTML = '<div class="empty-state"><div class="emoji">📭</div>У вас пока нет заказов</div>';
+                return;
+            }
+            list.innerHTML = state.orders.map(o => {
+                const b = bots.find(x => x.id === o.botId);
+                return `
+                    <div class="order-item">
+                        <div class="order-header">
+                            <div class="order-name">${b.icon} ${b.name}</div>
+                            <div class="order-status">Активен</div>
+                        </div>
+                        <div class="order-details">
+                            <span>${o.price} ₽</span>
+                            <span>${o.date}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ===== ДЕЙСТВИЯ =====
+        function toggleFav(id) {
+            const i = state.favorites.indexOf(id);
+            if (i > -1) state.favorites.splice(i, 1);
+            else state.favorites.push(id);
+            save();
+            renderProducts();
+            renderFavorites();
+            updateStats();
+        }
+
+        function buyBot(id) {
+            const bot = bots.find(b => b.id === id);
+            if (state.orders.some(o => o.botId === id)) {
+                alert('Этот бот уже куплен!');
+                return;
+            }
+            if (state.balance < bot.price) {
+                alert('❌ Недостаточно средств! Пополните баланс.');
+                return;
+            }
+            if (confirm(`Купить "${bot.name}" за ${bot.price} ₽?`)) {
+                state.balance -= bot.price;
+                state.orders.unshift({
+                    botId: id,
+                    price: bot.price,
+                    date: new Date().toLocaleDateString('ru-RU')
+                });
+                save();
+                renderProducts();
+                renderOrders();
+                updateProfile();
+                updateStats();
+                alert(`✅ "${bot.name}" успешно куплен!`);
+            }
+        }
+
+        // ===== ПОПОЛНЕНИЕ =====
+        document.getElementById('btn-deposit').addEventListener('click', () => {
+            const amount = prompt('Введите сумму пополнения (₽):', '500');
+            if (amount && !isNaN(amount) && parseInt(amount) > 0) {
+                state.balance += parseInt(amount);
+                save();
+                updateProfile();
+                alert(`✅ Баланс пополнен на ${amount} ₽`);
+            }
+        });
+
+        // ===== КАТЕГОРИИ =====
+        document.querySelectorAll('.category').forEach(cat => {
+            cat.addEventListener('click', () => {
+                document.querySelectorAll('.category').forEach(c => c.classList.remove('active'));
+                cat.classList.add('active');
+                state.currentCategory = cat.dataset.category;
+                renderProducts();
+            });
+        });
+
+        document.getElementById('search-input').addEventListener('input', renderProducts);
+
+        // ===== НАВИГАЦИЯ =====
+        function showPage(name) {
+            document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+            document.getElementById('page-' + name).classList.add('active');
+            document.querySelector(`.nav-item[data-page="${name}"]`).classList.add('active');
+            if (name === 'favorites') renderFavorites();
+            if (name === 'orders') renderOrders();
+            window.scrollTo(0, 0);
+        }
+
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', () => showPage(item.dataset.page));
+        });
+
+        // ===== ПРОФИЛЬ =====
+        function updateProfile() {
+            const u = state.user;
+            document.getElementById('profile-name').textContent = u.first_name || 'Пользователь';
+            document.getElementById('profile-username').textContent = '@' + (u.username || 'user');
+            document.getElementById('balance-amount').textContent = state.balance + ' ₽';
+            document.getElementById('profile-avatar').textContent = (u.first_name || '?')[0].toUpperCase();
+        }
+
+        function updateStats() {
+            document.getElementById('orders-count').textContent = state.orders.length + ' заказов';
+            document.getElementById('favorites-count').textContent = state.favorites.length + ' ботов';
+        }
+
+        // ===== СТАРТ =====
+        updateProfile();
+        renderProducts();
+        updateStats();
+    </script>
 </body>
 </html>
