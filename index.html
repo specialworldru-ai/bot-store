@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Bot Store</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="app">
+        <!-- Главная страница / Каталог -->
+        <div class="page active" id="page-catalog">
+            <div class="search-bar">
+                <input type="text" placeholder="Поиск ботов..." id="search-input">
+            </div>
+            
+            <div class="categories">
+                <div class="category active" data-category="all">
+                    <div class="category-icon"></div>
+                    <span>ВСЕ</span>
+                </div>
+                <div class="category" data-category="chat">
+                    <div class="category-icon">💬</div>
+                    <span>CHAT</span>
+                </div>
+                <div class="category" data-category="moderation">
+                    <div class="category-icon">🛡️</div>
+                    <span>MODERATION</span>
+                </div>
+                <div class="category" data-category="music">
+                    <div class="category-icon"></div>
+                    <span>MUSIC</span>
+                </div>
+                <div class="category" data-category="game">
+                    <div class="category-icon">🎮</div>
+                    <span>GAME</span>
+                </div>
+                <div class="category" data-category="admin">
+                    <div class="category-icon">️</div>
+                    <span>ADMIN</span>
+                </div>
+            </div>
+
+            <div class="products-grid" id="products-grid">
+                <!-- Товары будут добавлены через JS -->
+            </div>
+        </div>
+
+        <!-- Избранное -->
+        <div class="page" id="page-favorites">
+            <h2>Избранное</h2>
+            <div class="products-grid" id="favorites-grid">
+                <div class="empty-state">У вас пока нет избранных ботов</div>
+            </div>
+        </div>
+
+        <!-- Заказы -->
+        <div class="page" id="page-orders">
+            <h2>Мои заказы</h2>
+            <div class="orders-list" id="orders-list">
+                <div class="empty-state">У вас пока нет заказов</div>
+            </div>
+        </div>
+
+        <!-- Профиль -->
+        <div class="page" id="page-profile">
+            <div class="profile-header">
+                <div class="profile-avatar" id="profile-avatar">Z</div>
+                <h2 id="profile-name">Пользователь</h2>
+                <p id="profile-username">@username</p>
+                <p class="profile-date" id="profile-date">В магазине с 25.08.2026</p>
+            </div>
+
+            <div class="balance-card">
+                <div class="balance-info">
+                    <span>Баланс:</span>
+                    <span class="balance-amount" id="balance-amount">0 ₽</span>
+                </div>
+                <button class="btn-deposit" id="btn-deposit">Пополнить</button>
+            </div>
+
+            <div class="profile-stats">
+                <div class="stat-item" onclick="showPage('orders')">
+                    <span class="stat-label">Мои заказы</span>
+                    <span class="stat-value" id="orders-count">0 заказов</span>
+                    <span class="stat-arrow">›</span>
+                </div>
+                <div class="stat-item" onclick="showPage('favorites')">
+                    <span class="stat-label">Избранное</span>
+                    <span class="stat-value" id="favorites-count">0 ботов</span>
+                    <span class="stat-arrow">›</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Нижняя навигация -->
+        <nav class="bottom-nav">
+            <div class="nav-item active" data-page="catalog">
+                <span class="nav-icon">🏠</span>
+                <span>Главная</span>
+            </div>
+            <div class="nav-item" data-page="favorites">
+                <span class="nav-icon">❤️</span>
+                <span>Избранное</span>
+            </div>
+            <div class="nav-item" data-page="orders">
+                <span class="nav-icon"></span>
+                <span>Заказы</span>
+            </div>
+            <div class="nav-item" data-page="profile">
+                <span class="nav-icon">👤</span>
+                <span>Профиль</span>
+            </div>
+        </nav>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
