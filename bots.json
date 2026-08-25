@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "name": "ChatBot Pro",
+    "price": 990,
+    "description": "Умный чат-бот для автоматизации общения с клиентами. Поддерживает NLP, интеграцию с CRM и аналитику.",
+    "image": "https://via.placeholder.com/400x400/1a1a1a/ffffff?text=ChatBot+Pro"
+  },
+  {
+    "id": 2,
+    "name": "Auto Moderator",
+    "price": 1490,
+    "description": "Автоматическая модерация чата. Фильтрует спам, мат и рекламу. Настраиваемые правила.",
+    "image": "https://via.placeholder.com/400x400/1a1a1a/ffffff?text=Moderator+Bot"
+  }
+]
