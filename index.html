@@ -7,158 +7,90 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', sans-serif;
             background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
             color: #fff;
             min-height: 100vh;
-            overflow-x: hidden;
         }
-
         .app {
             max-width: 480px;
             margin: 0 auto;
             min-height: 100vh;
-            position: relative;
             display: flex;
             flex-direction: column;
         }
 
+        /* HEADER */
         .header {
-            padding: 20px 20px 16px;
+            padding: 20px;
             text-align: center;
             position: sticky;
             top: 0;
             z-index: 50;
-            background: linear-gradient(180deg, rgba(10,10,10,0.95) 0%, rgba(10,10,10,0.8) 100%);
+            background: rgba(10,10,10,0.9);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
         }
-
         .logo {
             font-size: 28px;
             font-weight: 900;
-            letter-spacing: -1px;
-            background: linear-gradient(135deg, #fff 0%, #888 50%, #fff 100%);
+            background: linear-gradient(135deg, #fff, #888, #fff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
+        .logo span { font-weight: 400; opacity: 0.7; }
 
-        .logo span {
-            font-weight: 400;
-            opacity: 0.7;
-        }
-
-        .search-bar {
-            padding: 0 20px;
-            margin-bottom: 20px;
-        }
+        /* SEARCH */
+        .search-bar { padding: 0 20px; margin-bottom: 20px; }
         .search-bar input {
             width: 100%;
             padding: 14px 18px 14px 44px;
-            background: linear-gradient(135deg, #1a1a1a, #222);
+            background: #1a1a1a;
             border: 1px solid #333;
             border-radius: 14px;
             color: #fff;
             font-size: 15px;
             outline: none;
-            transition: all 0.3s;
             background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
             background-repeat: no-repeat;
             background-position: 14px center;
         }
-        .search-bar input:focus {
-            border-color: #666;
-            background: linear-gradient(135deg, #1e1e1e, #262626);
-        }
+        .search-bar input:focus { border-color: #666; }
         .search-bar input::placeholder { color: #555; }
 
-        .loading {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 60px 20px;
-            color: #666;
-        }
-        .loading-spinner {
-            width: 40px;
-            height: 40px;
-            border: 3px solid #333;
-            border-top-color: #fff;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
+        /* GRID */
         .products-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 12px;
             padding: 0 20px;
         }
-
         .product-card {
             background: linear-gradient(145deg, #1e1e1e, #141414);
             border: 1px solid #2a2a2a;
             border-radius: 18px;
-            overflow: hidden;
-            transition: all 0.3s;
+            padding: 20px 16px;
             cursor: pointer;
-        }
-        .product-card:active {
-            transform: scale(0.96);
-            border-color: #444;
-        }
-
-        .product-image {
-            width: 100%;
-            aspect-ratio: 1;
-            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+            transition: all 0.2s;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 140px;
         }
-        .product-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .product-image .placeholder {
-            font-size: 48px;
-            opacity: 0.3;
-        }
-
-        .product-info {
-            padding: 12px;
-        }
+        .product-card:active { transform: scale(0.96); border-color: #444; }
         .product-name {
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 6px;
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 8px;
             line-height: 1.3;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
         .product-price {
-            font-size: 15px;
+            font-size: 18px;
             font-weight: 800;
             background: linear-gradient(135deg, #fff, #aaa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
         }
 
         .empty-state {
@@ -167,24 +99,15 @@
             color: #555;
             grid-column: 1 / -1;
         }
-        .empty-state p {
-            font-size: 15px;
-        }
 
-        .profile-page {
+        /* PROFILE */
+        .profile-page, .orders-page, .bot-detail-page, .admin-panel {
             padding: 0 20px;
-            display: flex;
-            flex-direction: column;
             flex: 1;
         }
-
-        .profile-header {
-            text-align: center;
-            padding: 24px 0 20px;
-        }
+        .profile-header { text-align: center; padding: 24px 0 20px; }
         .profile-avatar {
-            width: 90px;
-            height: 90px;
+            width: 90px; height: 90px;
             background: linear-gradient(135deg, #333, #1a1a1a);
             border: 2px solid #444;
             border-radius: 50%;
@@ -194,25 +117,13 @@
             font-size: 38px;
             font-weight: 800;
             margin: 0 auto 16px;
-            color: #fff;
         }
-        .profile-header h2 {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 4px;
-        }
-        .profile-header .username {
-            color: #666;
-            font-size: 14px;
-        }
-        .profile-date {
-            color: #555;
-            font-size: 13px;
-            margin-top: 10px;
-        }
+        .profile-header h2 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+        .profile-header .username { color: #666; font-size: 14px; }
+        .profile-date { color: #555; font-size: 13px; margin-top: 10px; }
 
         .profile-stats {
-            background: linear-gradient(145deg, #1e1e1e, #141414);
+            background: #1e1e1e;
             border: 1px solid #2a2a2a;
             border-radius: 18px;
             overflow: hidden;
@@ -225,152 +136,69 @@
             padding: 18px 20px;
             border-bottom: 1px solid #2a2a2a;
             cursor: pointer;
-            transition: background 0.2s;
         }
         .stat-item:last-child { border-bottom: none; }
-        .stat-item:active { background: #2a2a2a; }
         .stat-label { font-size: 15px; font-weight: 500; }
         .stat-arrow { color: #555; font-size: 20px; }
 
-        .orders-page {
-            padding: 0 20px;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-        .orders-title {
-            font-size: 24px;
-            font-weight: 800;
-            margin: 20px 0;
-        }
-        .orders-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+        /* ORDERS */
+        .orders-title { font-size: 24px; font-weight: 800; margin: 20px 0; }
+        .orders-list { display: flex; flex-direction: column; gap: 12px; }
         .order-card {
-            background: linear-gradient(145deg, #1e1e1e, #141414);
+            background: #1e1e1e;
             border: 1px solid #2a2a2a;
             border-radius: 16px;
             padding: 16px;
-            display: flex;
-            gap: 14px;
         }
-        .order-image {
-            width: 70px;
-            height: 70px;
-            border-radius: 12px;
-            background: #2a2a2a;
-            overflow: hidden;
-            flex-shrink: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .order-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .order-info { flex: 1; }
-        .order-name {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 6px;
-        }
-        .order-price {
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 8px;
-        }
+        .order-name { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+        .order-price { font-size: 14px; color: #888; margin-bottom: 8px; }
         .order-status {
             display: inline-block;
             padding: 4px 12px;
-            background: linear-gradient(135deg, #4CAF50, #2E7D32);
+            background: #4CAF50;
             border-radius: 20px;
             font-size: 11px;
             font-weight: 700;
         }
-        .order-date {
-            font-size: 12px;
-            color: #666;
-            margin-top: 6px;
-        }
+        .order-date { font-size: 12px; color: #666; margin-top: 6px; }
 
-        .admin-panel {
-            padding: 0 20px;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-        .admin-title {
-            font-size: 24px;
-            font-weight: 800;
-            margin: 20px 0;
-            background: linear-gradient(135deg, #fff, #888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .admin-info {
-            background: linear-gradient(145deg, #1e1e1e, #141414);
-            border: 1px solid #2a2a2a;
-            border-radius: 16px;
-            padding: 16px;
-            margin-bottom: 20px;
-            font-size: 14px;
-            line-height: 1.6;
-            color: #aaa;
-        }
-        .admin-info code {
-            background: #2a2a2a;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 13px;
-            color: #fff;
-        }
-
-        .bot-detail-page {
-            padding: 0 20px;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-        .bot-detail-image {
-            width: 100%;
-            aspect-ratio: 16/9;
+        /* BOT DETAIL */
+        .bot-detail-page { display: flex; flex-direction: column; }
+        .bot-detail-icon {
+            width: 100px; height: 100px;
             background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
-            border-radius: 20px;
-            overflow: hidden;
-            margin-bottom: 20px;
+            border: 1px solid #333;
+            border-radius: 24px;
             display: flex;
             align-items: center;
             justify-content: center;
-        }
-        .bot-detail-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            font-size: 48px;
+            margin: 20px auto 20px;
         }
         .bot-detail-name {
             font-size: 26px;
             font-weight: 800;
+            text-align: center;
             margin-bottom: 8px;
         }
         .bot-detail-price {
             font-size: 22px;
             font-weight: 800;
+            text-align: center;
             background: linear-gradient(135deg, #fff, #aaa);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
         }
         .bot-detail-description {
             font-size: 15px;
-            line-height: 1.6;
+            line-height: 1.7;
             color: #aaa;
             margin-bottom: 24px;
+            padding: 16px;
+            background: #1e1e1e;
+            border: 1px solid #2a2a2a;
+            border-radius: 16px;
         }
         .bot-detail-btn {
             width: 100%;
@@ -381,13 +209,10 @@
             color: #000;
             font-size: 16px;
             font-weight: 700;
-            cursor: pointer;
-            transition: all 0.2s;
             text-decoration: none;
             text-align: center;
             display: block;
         }
-        .bot-detail-btn:active { transform: scale(0.97); }
         .bot-detail-back {
             margin-top: 12px;
             padding: 14px;
@@ -397,47 +222,88 @@
             color: #fff;
             font-size: 15px;
             cursor: pointer;
-            transition: all 0.2s;
+            width: 100%;
         }
-        .bot-detail-back:active { background: #2a2a2a; }
 
+        /* ADMIN */
+        .admin-title {
+            font-size: 24px;
+            font-weight: 800;
+            margin: 20px 0;
+            background: linear-gradient(135deg, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .admin-hint {
+            background: #1e1e1e;
+            border: 1px solid #2a2a2a;
+            border-radius: 16px;
+            padding: 16px;
+            font-size: 14px;
+            line-height: 1.7;
+            color: #aaa;
+            margin-bottom: 20px;
+        }
+        .admin-hint code {
+            background: #2a2a2a;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-size: 12px;
+            color: #fff;
+            display: inline-block;
+            margin: 4px 0;
+        }
+        .admin-hint pre {
+            background: #0a0a0a;
+            border: 1px solid #2a2a2a;
+            border-radius: 10px;
+            padding: 12px;
+            margin: 12px 0;
+            overflow-x: auto;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        .admin-bot-list { margin-top: 16px; }
+        .admin-bot-item {
+            background: #1e1e1e;
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 14px;
+            margin-bottom: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .admin-bot-name { font-weight: 600; font-size: 14px; }
+        .admin-bot-price { color: #888; font-size: 13px; }
+
+        /* FOOTER */
         .footer {
             text-align: center;
             padding: 20px;
             color: #444;
             font-size: 12px;
-            font-weight: 500;
-            letter-spacing: 0.5px;
             margin-top: auto;
         }
-        .footer a {
-            color: #666;
-            text-decoration: none;
-        }
+        .footer a { color: #666; text-decoration: none; }
 
-        .page {
-            display: none;
-            flex-direction: column;
-            flex: 1;
-            min-height: 0;
-        }
+        /* PAGES */
+        .page { display: none; flex-direction: column; flex: 1; }
         .page.active { display: flex; }
 
+        /* NAV */
         .bottom-nav {
             position: sticky;
             bottom: 0;
-            background: rgba(10, 10, 10, 0.7);
+            background: rgba(10,10,10,0.8);
             backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
             border-top: 1px solid rgba(255,255,255,0.06);
             display: flex;
             justify-content: center;
-            gap: 0;
             padding: 8px 20px;
             padding-bottom: max(8px, env(safe-area-inset-bottom));
             z-index: 100;
         }
-
         .nav-item {
             display: flex;
             flex-direction: column;
@@ -445,153 +311,89 @@
             gap: 5px;
             cursor: pointer;
             padding: 10px 32px;
-            transition: all 0.2s;
         }
-
         .nav-item svg {
-            width: 24px;
-            height: 24px;
+            width: 24px; height: 24px;
             stroke: #555;
             fill: none;
             stroke-width: 1.8;
             stroke-linecap: round;
             stroke-linejoin: round;
-            transition: all 0.2s;
         }
-
-        .nav-item span {
-            font-size: 11px;
-            font-weight: 600;
-            color: #555;
-            transition: color 0.2s;
-        }
-
+        .nav-item span { font-size: 11px; font-weight: 600; color: #555; }
         .nav-item.active svg { stroke: #fff; }
         .nav-item.active span { color: #fff; }
-        .nav-item:active { transform: scale(0.95); }
 
+        /* DESKTOP */
         @media (min-width: 768px) {
-            body {
-                background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
-            }
-            .app {
-                max-width: 100%;
-            }
-            .header, .search-bar, .products-grid, .footer {
-                max-width: 1200px;
-                margin: 0 auto;
-            }
+            .app { max-width: 100%; }
+            .header, .search-bar, .products-grid, .footer { max-width: 1200px; margin: 0 auto; }
             .header { padding: 24px 40px 20px; }
             .logo { font-size: 32px; }
             .search-bar { padding: 0 40px; margin-bottom: 24px; }
-            .products-grid { 
-                padding: 0 40px;
-                grid-template-columns: repeat(4, 1fr);
-                gap: 20px;
-            }
-            .product-card { border-radius: 20px; }
-            .product-card:hover {
-                transform: translateY(-4px);
-                border-color: #444;
-                box-shadow: 0 12px 40px rgba(0,0,0,0.4);
-            }
-            .product-image { aspect-ratio: 4/3; }
+            .products-grid { padding: 0 40px; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+            .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); border-color: #444; }
             .footer { padding: 24px; margin-top: 40px; }
-            .bottom-nav {
-                max-width: 1200px;
-                padding: 12px 40px;
-            }
+            .bottom-nav { max-width: 1200px; padding: 12px 40px; }
             .nav-item { padding: 12px 40px; }
-            
-            .profile-page, .orders-page, .admin-panel, .bot-detail-page {
-                max-width: 800px;
-                margin: 0 auto;
-                padding: 20px 40px;
-            }
-            .bot-detail-image {
-                max-width: 600px;
-                margin: 0 auto 24px;
-            }
-        }
-
-        .toast {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-100px);
-            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
-            border: 1px solid #333;
-            border-radius: 14px;
-            padding: 14px 24px;
-            color: #fff;
-            font-size: 14px;
-            font-weight: 500;
-            z-index: 300;
-            transition: transform 0.3s ease;
-            max-width: 90%;
-        }
-        .toast.show {
-            transform: translateX(-50%) translateY(0);
+            .profile-page, .orders-page, .admin-panel { max-width: 800px; margin: 0 auto; padding: 20px 40px; }
+            .bot-detail-page { max-width: 600px; margin: 0 auto; padding: 20px 40px; }
         }
     </style>
 </head>
 <body>
     <div class="app">
-
         <div class="header">
             <div class="logo">Quick<span>Market</span></div>
         </div>
 
+        <!-- КАТАЛОГ -->
         <div class="page active" id="page-catalog">
             <div class="search-bar">
                 <input type="text" placeholder="Поиск ботов..." id="search-input">
             </div>
-
-            <div class="products-grid" id="products-grid">
-                <div class="loading">
-                    <div class="loading-spinner"></div>
-                </div>
-            </div>
-
+            <div class="products-grid" id="products-grid"></div>
             <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
         </div>
 
+        <!-- ДЕТАЛИ БОТА -->
         <div class="page" id="page-bot-detail">
             <div class="bot-detail-page">
-                <div class="bot-detail-image" id="detail-image"></div>
+                <div class="bot-detail-icon">🤖</div>
                 <h1 class="bot-detail-name" id="detail-name"></h1>
                 <div class="bot-detail-price" id="detail-price"></div>
                 <div class="bot-detail-description" id="detail-description"></div>
                 <a href="https://t.me/z9hie" class="bot-detail-btn" target="_blank">Купить</a>
-                <button class="bot-detail-back" onclick="showPage('catalog')">← Назад к каталогу</button>
+                <button class="bot-detail-back" onclick="showPage('catalog')">← Назад</button>
             </div>
             <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
         </div>
 
+        <!-- ЗАКАЗЫ -->
         <div class="page" id="page-orders">
             <div class="orders-page">
-                <h2 class="orders-title"> Мои заказы</h2>
+                <h2 class="orders-title">Мои заказы</h2>
                 <div class="orders-list" id="orders-list"></div>
             </div>
             <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
         </div>
 
+        <!-- ПРОФИЛЬ -->
         <div class="page" id="page-profile">
             <div class="profile-page">
                 <div class="profile-header">
                     <div class="profile-avatar" id="profile-avatar">?</div>
                     <h2 id="profile-name">Пользователь</h2>
                     <p class="username" id="profile-username">@user</p>
-                    <p class="profile-date" id="profile-date">В магазине с 25.08.2026</p>
+                    <p class="profile-date">В магазине с 25.08.2026</p>
                 </div>
-
                 <div class="profile-stats">
                     <div class="stat-item" onclick="showPage('orders')">
-                        <span class="stat-label">📦 Мои заказы</span>
+                        <span class="stat-label">Мои заказы</span>
                         <span class="stat-arrow">›</span>
                     </div>
                     <div class="stat-item" id="admin-stat" style="display:none" onclick="showPage('admin')">
-                        <span class="stat-label">⚙️ Админ панель</span>
+                        <span class="stat-label">Админ панель</span>
                         <span class="stat-arrow">›</span>
                     </div>
                 </div>
@@ -599,117 +401,94 @@
             <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
         </div>
 
+        <!-- АДМИН -->
         <div class="page" id="page-admin">
             <div class="admin-panel">
-                <h2 class="admin-title">⚙️ Админ панель</h2>
-
-                <div class="admin-info">
+                <h2 class="admin-title">Админ панель</h2>
+                <div class="admin-hint">
                     <strong>Как добавить бота:</strong><br><br>
-                    1. Открой файл <code>bots.json</code> в репозитории<br>
-                    2. Нажми ✏️ (редактировать)<br>
-                    3. Добавь новый объект в массив<br>
-                    4. Нажми <strong>Commit changes</strong><br><br>
-                    <strong>Формат:</strong><br>
-                    <code>{<br>
-                    &nbsp;&nbsp;"id": 3,<br>
-                    &nbsp;&nbsp;"name": "Bot Name",<br>
-                    &nbsp;&nbsp;"price": 990,<br>
-                    &nbsp;&nbsp;"description": "Описание...",<br>
-                    &nbsp;&nbsp;"image": "https://..."<br>
-                    }</code>
+                    1. Открой файл <code>index.html</code> на GitHub<br>
+                    2. Нажми ️ (редактировать)<br>
+                    3. Найди массив <code>bots</code> в коде<br>
+                    4. Добавь нового бота по примеру:<br>
+<pre>{
+  id: 3,
+  name: "Название бота",
+  price: 990,
+  description: "Полное описание бота..."
+},</pre>
+                    5. Нажми <strong>Commit changes</strong><br><br>
+                    Через 1-2 минуты бот появится у всех!
                 </div>
-
-                <div id="admin-bots-list"></div>
+                <div class="admin-bot-list" id="admin-bot-list"></div>
             </div>
             <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
         </div>
 
+        <!-- НАВИГАЦИЯ -->
         <nav class="bottom-nav">
             <div class="nav-item active" data-page="catalog">
-                <svg viewBox="0 0 24 24">
-                    <path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/>
-                    <polyline points="9 21 9 14 15 14 15 21"/>
-                </svg>
+                <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><polyline points="9 21 9 14 15 14 15 21"/></svg>
                 <span>Главная</span>
             </div>
             <div class="nav-item" data-page="orders">
-                <svg viewBox="0 0 24 24">
-                    <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-                    <polyline points="17 8 12 3 7 8"/>
-                    <line x1="12" y1="3" x2="12" y2="15"/>
-                </svg>
+                <svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
                 <span>Заказы</span>
             </div>
             <div class="nav-item" data-page="profile">
-                <svg viewBox="0 0 24 24">
-                    <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/>
-                    <circle cx="12" cy="7" r="4"/>
-                </svg>
+                <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
                 <span>Профиль</span>
             </div>
         </nav>
     </div>
 
-    <div class="toast" id="toast"></div>
-
     <script>
         const tg = window.Telegram?.WebApp;
-        if (tg) {
-            tg.expand();
-            tg.ready();
-            try { tg.enableClosingConfirmation(); } catch(e) {}
-        }
+        if (tg) { tg.expand(); tg.ready(); }
 
         const ADMIN_ID = 5640325235;
-        const BOTS_JSON_URL = 'https://raw.githubusercontent.com/specialworldru-ai/bot-store/main/bots.json';
 
-        let bots = [];
+        // ============================================
+        // 👇 СПИСОК БОТОВ — ДОБАВЛЯЙ СЮДА 👇
+        // ============================================
+        const bots = [
+            {
+                id: 1,
+                name: "ChatBot Pro",
+                price: 990,
+                description: "Умный чат-бот для автоматизации общения с клиентами. Поддерживает NLP, интеграцию с CRM и аналитику диалогов."
+            },
+            {
+                id: 2,
+                name: "Music Bot",
+                price: 1490,
+                description: "Музыкальный бот для Telegram. Воспроизводит музыку из YouTube, Spotify, SoundCloud. Поддержка плейлистов и очередей."
+            }
+            // Добавляй новых ботов сюда по аналогии ↑
+            // Не забудь запятую после каждого объекта кроме последнего!
+        ];
+        // ============================================
+        //  КОНЕЦ СПИСКА БОТОВ 👆
+        // ============================================
+
         let orders = JSON.parse(localStorage.getItem('qm_orders') || '[]');
-
         const user = tg?.initDataUnsafe?.user || { first_name: 'Гость', username: 'guest', id: 0 };
         const isAdmin = user.id === ADMIN_ID;
-
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.textContent = msg;
-            t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 2000);
-        }
-
-        // Загрузка ботов из JSON файла
-        async function loadBots() {
-            try {
-                const response = await fetch(BOTS_JSON_URL);
-                if (!response.ok) throw new Error('Failed to load');
-                bots = await response.json();
-                renderProducts();
-                if (isAdmin) renderAdminBots();
-            } catch (error) {
-                console.error('Error loading bots:', error);
-                document.getElementById('products-grid').innerHTML = '<div class="empty-state"><p>Ошибка загрузки ботов</p></div>';
-            }
-        }
 
         function renderProducts() {
             const grid = document.getElementById('products-grid');
             const search = document.getElementById('search-input').value.toLowerCase();
-
             const filtered = bots.filter(b => b.name.toLowerCase().includes(search));
 
             if (filtered.length === 0) {
-                grid.innerHTML = '<div class="empty-state"><p>Боты пока не добавлены</p></div>';
+                grid.innerHTML = '<div class="empty-state"><p>Боты не найдены</p></div>';
                 return;
             }
 
             grid.innerHTML = filtered.map(b => `
                 <div class="product-card" onclick="showBotDetail(${b.id})">
-                    <div class="product-image">
-                        ${b.image ? `<img src="${b.image}" alt="${b.name}">` : '<div class="placeholder">🤖</div>'}
-                    </div>
-                    <div class="product-info">
-                        <div class="product-name">${b.name}</div>
-                        <div class="product-price">${b.price} ₽</div>
-                    </div>
+                    <div class="product-name">${b.name}</div>
+                    <div class="product-price">${b.price} ₽</div>
                 </div>
             `).join('');
         }
@@ -717,17 +496,9 @@
         function showBotDetail(id) {
             const bot = bots.find(b => b.id === id);
             if (!bot) return;
-
             document.getElementById('detail-name').textContent = bot.name;
             document.getElementById('detail-price').textContent = `${bot.price} ₽`;
             document.getElementById('detail-description').textContent = bot.description || 'Описание отсутствует';
-            
-            if (bot.image) {
-                document.getElementById('detail-image').innerHTML = `<img src="${bot.image}" alt="${bot.name}">`;
-            } else {
-                document.getElementById('detail-image').innerHTML = '<div class="placeholder">🤖</div>';
-            }
-
             showPage('bot-detail');
         }
 
@@ -745,31 +516,28 @@
                 if (!bot) return '';
                 return `
                     <div class="order-card">
-                        <div class="order-image">
-                            ${bot.image ? `<img src="${bot.image}">` : '<div class="placeholder"></div>'}
-                        </div>
-                        <div class="order-info">
-                            <div class="order-name">${bot.name}</div>
-                            <div class="order-price">${bot.price} ₽</div>
-                            <span class="order-status">Активен</span>
-                            <div class="order-date">${new Date(o.date).toLocaleDateString('ru-RU')}</div>
-                        </div>
+                        <div class="order-name">${bot.name}</div>
+                        <div class="order-price">${bot.price} ₽</div>
+                        <span class="order-status">Активен</span>
+                        <div class="order-date">${o.date}</div>
                     </div>
                 `;
             }).join('');
         }
 
         function renderAdminBots() {
-            const container = document.getElementById('admin-bots-list');
+            const container = document.getElementById('admin-bot-list');
             if (bots.length === 0) {
                 container.innerHTML = '<div class="empty-state"><p>Нет ботов</p></div>';
                 return;
             }
-            container.innerHTML = '<h3 style="margin: 20px 0 12px; font-size: 18px;">Текущие боты:</h3>' + 
+            container.innerHTML = '<h3 style="margin-bottom: 12px; font-size: 16px;">Текущие боты (' + bots.length + '):</h3>' +
                 bots.map(b => `
-                    <div style="background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 12px; padding: 12px; margin-bottom: 8px;">
-                        <div style="font-weight: 600; margin-bottom: 4px;">${b.name}</div>
-                        <div style="color: #888; font-size: 13px;">${b.price} ₽</div>
+                    <div class="admin-bot-item">
+                        <div>
+                            <div class="admin-bot-name">${b.name}</div>
+                            <div class="admin-bot-price">${b.price} ₽</div>
+                        </div>
                     </div>
                 `).join('');
         }
@@ -778,11 +546,10 @@
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById('page-' + name).classList.add('active');
-            
             const navItem = document.querySelector(`.nav-item[data-page="${name}"]`);
             if (navItem) navItem.classList.add('active');
-
             if (name === 'orders') renderOrders();
+            if (name === 'admin') renderAdminBots();
             window.scrollTo(0, 0);
         }
 
@@ -790,20 +557,15 @@
             item.addEventListener('click', () => showPage(item.dataset.page));
         });
 
-        function updateProfile() {
-            document.getElementById('profile-name').textContent = user.first_name || 'Пользователь';
-            document.getElementById('profile-username').textContent = '@' + (user.username || 'user');
-            document.getElementById('profile-avatar').textContent = (user.first_name || '?')[0].toUpperCase();
-            
-            if (isAdmin) {
-                document.getElementById('admin-stat').style.display = 'flex';
-            }
-        }
-
         document.getElementById('search-input').addEventListener('input', renderProducts);
 
-        updateProfile();
-        loadBots();
+        // Профиль
+        document.getElementById('profile-name').textContent = user.first_name || 'Пользователь';
+        document.getElementById('profile-username').textContent = '@' + (user.username || 'user');
+        document.getElementById('profile-avatar').textContent = (user.first_name || '?')[0].toUpperCase();
+        if (isAdmin) document.getElementById('admin-stat').style.display = 'flex';
+
+        renderProducts();
     </script>
 </body>
 </html>
