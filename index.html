@@ -32,7 +32,6 @@
             flex-direction: column;
         }
 
-        /* ===== HEADER ===== */
         .header {
             padding: 20px 20px 16px;
             text-align: center;
@@ -59,7 +58,6 @@
             opacity: 0.7;
         }
 
-        /* ===== ПОИСК ===== */
         .search-bar {
             padding: 0 20px;
             margin-bottom: 20px;
@@ -84,7 +82,25 @@
         }
         .search-bar input::placeholder { color: #555; }
 
-        /* ===== СЕТКА ТОВАРОВ ===== */
+        .loading {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #333;
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
         .products-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -145,7 +161,6 @@
             background-clip: text;
         }
 
-        /* ===== ПУСТОЕ СОСТОЯНИЕ ===== */
         .empty-state {
             text-align: center;
             padding: 60px 20px;
@@ -156,7 +171,6 @@
             font-size: 15px;
         }
 
-        /* ===== ПРОФИЛЬ ===== */
         .profile-page {
             padding: 0 20px;
             display: flex;
@@ -218,7 +232,6 @@
         .stat-label { font-size: 15px; font-weight: 500; }
         .stat-arrow { color: #555; font-size: 20px; }
 
-        /* ===== МОИ ЗАКАЗЫ ===== */
         .orders-page {
             padding: 0 20px;
             display: flex;
@@ -259,9 +272,7 @@
             height: 100%;
             object-fit: cover;
         }
-        .order-info {
-            flex: 1;
-        }
+        .order-info { flex: 1; }
         .order-name {
             font-size: 15px;
             font-weight: 700;
@@ -286,7 +297,6 @@
             margin-top: 6px;
         }
 
-        /* ===== АДМИН ПАНЕЛЬ ===== */
         .admin-panel {
             padding: 0 20px;
             display: flex;
@@ -302,163 +312,24 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .admin-btn {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
-            border: 1px solid #333;
-            border-radius: 16px;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            margin-bottom: 12px;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-        }
-        .admin-btn:active {
-            transform: scale(0.98);
-            border-color: #555;
-        }
-
-        .admin-products {
-            margin-top: 24px;
-        }
-        .admin-product-item {
+        .admin-info {
             background: linear-gradient(145deg, #1e1e1e, #141414);
             border: 1px solid #2a2a2a;
-            border-radius: 14px;
-            padding: 14px;
-            margin-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .admin-product-thumb {
-            width: 50px;
-            height: 50px;
-            border-radius: 10px;
-            background: #2a2a2a;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-            flex-shrink: 0;
-        }
-        .admin-product-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        .admin-product-info { flex: 1; }
-        .admin-product-name { font-size: 14px; font-weight: 600; margin-bottom: 4px; }
-        .admin-product-price { font-size: 13px; color: #888; }
-        .admin-product-actions { display: flex; gap: 8px; }
-        .admin-action-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 10px;
-            border: 1px solid #333;
-            background: #2a2a2a;
-            color: #fff;
-            font-size: 16px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
-        .admin-action-btn:active { transform: scale(0.9); }
-        .admin-action-btn.delete { border-color: #552222; }
-
-        /* ===== МОДАЛКА ===== */
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.85);
-            z-index: 200;
-            align-items: flex-end;
-            justify-content: center;
-        }
-        .modal-overlay.active { display: flex; }
-        .modal {
-            background: linear-gradient(180deg, #1e1e1e, #141414);
-            border-radius: 24px 24px 0 0;
-            width: 100%;
-            max-width: 480px;
-            max-height: 85vh;
-            overflow-y: auto;
-            padding: 24px 20px;
-            padding-bottom: max(24px, env(safe-area-inset-bottom));
-            animation: slideUp 0.3s ease;
-        }
-        @keyframes slideUp {
-            from { transform: translateY(100%); }
-            to { transform: translateY(0); }
-        }
-        .modal-handle {
-            width: 40px; height: 4px;
-            background: #444;
-            border-radius: 2px;
-            margin: 0 auto 20px;
-        }
-        .modal h3 {
-            font-size: 20px;
-            font-weight: 700;
-            margin-bottom: 20px;
-        }
-        .form-group { margin-bottom: 16px; }
-        .form-group label {
-            display: block;
-            font-size: 13px;
-            color: #888;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-            width: 100%;
-            padding: 14px 16px;
-            background: #2a2a2a;
-            border: 1px solid #333;
-            border-radius: 12px;
-            color: #fff;
-            font-size: 15px;
-            outline: none;
-            transition: border-color 0.2s;
-            font-family: inherit;
-        }
-        .form-group input:focus,
-        .form-group textarea:focus,
-        .form-group select:focus { border-color: #666; }
-        .form-group textarea { resize: vertical; min-height: 100px; }
-        .form-group input[type="file"] { padding: 10px; }
-        .modal-btn {
-            width: 100%;
+            border-radius: 16px;
             padding: 16px;
-            background: linear-gradient(135deg, #fff, #ccc);
-            border: none;
-            border-radius: 14px;
-            color: #000;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 8px;
-            transition: all 0.2s;
+            margin-bottom: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #aaa;
         }
-        .modal-btn:active { transform: scale(0.97); }
-        .modal-btn.secondary {
+        .admin-info code {
             background: #2a2a2a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13px;
             color: #fff;
-            border: 1px solid #333;
         }
 
-        /* ===== ДЕТАЛИ БОТА (СТРАНИЦА) ===== */
         .bot-detail-page {
             padding: 0 20px;
             display: flex;
@@ -530,7 +401,6 @@
         }
         .bot-detail-back:active { background: #2a2a2a; }
 
-        /* ===== FOOTER ===== */
         .footer {
             text-align: center;
             padding: 20px;
@@ -545,7 +415,6 @@
             text-decoration: none;
         }
 
-        /* ===== СТРАНИЦЫ ===== */
         .page {
             display: none;
             flex-direction: column;
@@ -554,7 +423,6 @@
         }
         .page.active { display: flex; }
 
-        /* ===== НАВИГАЦИЯ ===== */
         .bottom-nav {
             position: sticky;
             bottom: 0;
@@ -602,56 +470,39 @@
         .nav-item.active span { color: #fff; }
         .nav-item:active { transform: scale(0.95); }
 
-        /* ===== DESKTOP ВЕРСИЯ ===== */
         @media (min-width: 768px) {
             body {
                 background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 50%, #0a0a0a 100%);
             }
             .app {
                 max-width: 100%;
-                border: none;
-                box-shadow: none;
             }
-            .header {
+            .header, .search-bar, .products-grid, .footer {
                 max-width: 1200px;
                 margin: 0 auto;
-                padding: 24px 40px 20px;
             }
+            .header { padding: 24px 40px 20px; }
             .logo { font-size: 32px; }
-            .search-bar {
-                max-width: 1200px;
-                margin: 0 auto 24px;
-                padding: 0 40px;
-            }
-            .products-grid {
-                max-width: 1200px;
-                margin: 0 auto;
+            .search-bar { padding: 0 40px; margin-bottom: 24px; }
+            .products-grid { 
                 padding: 0 40px;
                 grid-template-columns: repeat(4, 1fr);
                 gap: 20px;
             }
-            .product-card {
-                border-radius: 20px;
-            }
+            .product-card { border-radius: 20px; }
             .product-card:hover {
                 transform: translateY(-4px);
                 border-color: #444;
                 box-shadow: 0 12px 40px rgba(0,0,0,0.4);
             }
             .product-image { aspect-ratio: 4/3; }
-            .footer {
-                max-width: 1200px;
-                margin: 40px auto 0;
-                padding: 24px;
-            }
+            .footer { padding: 24px; margin-top: 40px; }
             .bottom-nav {
                 max-width: 1200px;
-                margin: 0 auto;
                 padding: 12px 40px;
             }
             .nav-item { padding: 12px 40px; }
             
-            /* Страницы на десктопе */
             .profile-page, .orders-page, .admin-panel, .bot-detail-page {
                 max-width: 800px;
                 margin: 0 auto;
@@ -663,7 +514,6 @@
             }
         }
 
-        /* ===== TOAST ===== */
         .toast {
             position: fixed;
             top: 20px;
@@ -688,23 +538,24 @@
 <body>
     <div class="app">
 
-        <!-- ===== HEADER ===== -->
         <div class="header">
             <div class="logo">Quick<span>Market</span></div>
         </div>
 
-        <!-- ========== ГЛАВНАЯ / КАТАЛОГ ========== -->
         <div class="page active" id="page-catalog">
             <div class="search-bar">
                 <input type="text" placeholder="Поиск ботов..." id="search-input">
             </div>
 
-            <div class="products-grid" id="products-grid"></div>
+            <div class="products-grid" id="products-grid">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                </div>
+            </div>
 
             <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
         </div>
 
-        <!-- ========== ДЕТАЛИ БОТА ========== -->
         <div class="page" id="page-bot-detail">
             <div class="bot-detail-page">
                 <div class="bot-detail-image" id="detail-image"></div>
@@ -717,16 +568,14 @@
             <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
         </div>
 
-        <!-- ========== МОИ ЗАКАЗЫ ========== -->
         <div class="page" id="page-orders">
             <div class="orders-page">
-                <h2 class="orders-title">📦 Мои заказы</h2>
+                <h2 class="orders-title"> Мои заказы</h2>
                 <div class="orders-list" id="orders-list"></div>
             </div>
             <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
         </div>
 
-        <!-- ========== ПРОФИЛЬ ========== -->
         <div class="page" id="page-profile">
             <div class="profile-page">
                 <div class="profile-header">
@@ -738,7 +587,7 @@
 
                 <div class="profile-stats">
                     <div class="stat-item" onclick="showPage('orders')">
-                        <span class="stat-label"> Мои заказы</span>
+                        <span class="stat-label">📦 Мои заказы</span>
                         <span class="stat-arrow">›</span>
                     </div>
                     <div class="stat-item" id="admin-stat" style="display:none" onclick="showPage('admin')">
@@ -750,21 +599,31 @@
             <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
         </div>
 
-        <!-- ========== АДМИН ПАНЕЛЬ ========== -->
         <div class="page" id="page-admin">
             <div class="admin-panel">
                 <h2 class="admin-title">⚙️ Админ панель</h2>
 
-                <button class="admin-btn" onclick="openAddModal()">
-                    <span>➕ Добавить бота</span>
-                </button>
+                <div class="admin-info">
+                    <strong>Как добавить бота:</strong><br><br>
+                    1. Открой файл <code>bots.json</code> в репозитории<br>
+                    2. Нажми ✏️ (редактировать)<br>
+                    3. Добавь новый объект в массив<br>
+                    4. Нажми <strong>Commit changes</strong><br><br>
+                    <strong>Формат:</strong><br>
+                    <code>{<br>
+                    &nbsp;&nbsp;"id": 3,<br>
+                    &nbsp;&nbsp;"name": "Bot Name",<br>
+                    &nbsp;&nbsp;"price": 990,<br>
+                    &nbsp;&nbsp;"description": "Описание...",<br>
+                    &nbsp;&nbsp;"image": "https://..."<br>
+                    }</code>
+                </div>
 
-                <div class="admin-products" id="admin-products"></div>
+                <div id="admin-bots-list"></div>
             </div>
             <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
         </div>
 
-        <!-- ========== НАВИГАЦИЯ ========== -->
         <nav class="bottom-nav">
             <div class="nav-item active" data-page="catalog">
                 <svg viewBox="0 0 24 24">
@@ -791,56 +650,6 @@
         </nav>
     </div>
 
-    <!-- ===== МОДАЛКА ДОБАВЛЕНИЯ/РЕДАКТИРОВАНИЯ ===== -->
-    <div class="modal-overlay" id="modal-overlay">
-        <div class="modal">
-            <div class="modal-handle"></div>
-            <h3 id="modal-title">Добавить бота</h3>
-
-            <div class="form-group">
-                <label>Название бота</label>
-                <input type="text" id="bot-name" placeholder="Например: ChatBot Pro">
-            </div>
-
-            <div class="form-group">
-                <label>Цена (₽)</label>
-                <input type="number" id="bot-price" placeholder="990">
-            </div>
-
-            <div class="form-group">
-                <label>Описание</label>
-                <textarea id="bot-description" placeholder="Полное описание бота с всеми возможностями и функциями..."></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>Фото бота</label>
-                <input type="file" id="bot-image" accept="image/*">
-            </div>
-
-            <button class="modal-btn" id="modal-save-btn" onclick="saveBot()">Добавить</button>
-            <button class="modal-btn secondary" onclick="closeModal()" style="margin-top: 8px;">Отмена</button>
-        </div>
-    </div>
-
-    <!-- ===== МОДАЛКА НАЗНАЧЕНИЯ ЗАКАЗА ===== -->
-    <div class="modal-overlay" id="assign-modal-overlay">
-        <div class="modal">
-            <div class="modal-handle"></div>
-            <h3>Назначить заказ</h3>
-            <div class="form-group">
-                <label>Telegram ID пользователя</label>
-                <input type="number" id="assign-user-id" placeholder="5640325235">
-            </div>
-            <div class="form-group">
-                <label>Бот</label>
-                <input type="text" id="assign-bot-name" readonly>
-            </div>
-            <button class="modal-btn" onclick="confirmAssign()">Назначить</button>
-            <button class="modal-btn secondary" onclick="closeAssignModal()" style="margin-top: 8px;">Отмена</button>
-        </div>
-    </div>
-
-    <!-- ===== TOAST ===== -->
     <div class="toast" id="toast"></div>
 
     <script>
@@ -852,31 +661,13 @@
         }
 
         const ADMIN_ID = 5640325235;
+        const BOTS_JSON_URL = 'https://raw.githubusercontent.com/ВАШ_ЮЗЕРНЕЙМ/bot-store/main/bots.json';
 
-        // ===== ДАННЫЕ =====
-        let bots = JSON.parse(localStorage.getItem('qm_bots') || '[]');
+        let bots = [];
         let orders = JSON.parse(localStorage.getItem('qm_orders') || '[]');
-        let users = JSON.parse(localStorage.getItem('qm_users') || '[]');
-        
-        let editingBotId = null;
-        let assigningBotId = null;
-        let currentBotId = null;
 
         const user = tg?.initDataUnsafe?.user || { first_name: 'Гость', username: 'guest', id: 0 };
         const isAdmin = user.id === ADMIN_ID;
-
-        // Сохраняем текущего пользователя
-        function saveUser() {
-            if (user.id && !users.find(u => u.id === user.id)) {
-                users.push({
-                    id: user.id,
-                    first_name: user.first_name,
-                    username: user.username,
-                    joined: new Date().toISOString()
-                });
-                localStorage.setItem('qm_users', JSON.stringify(users));
-            }
-        }
 
         function showToast(msg) {
             const t = document.getElementById('toast');
@@ -885,15 +676,20 @@
             setTimeout(() => t.classList.remove('show'), 2000);
         }
 
-        function saveBots() {
-            localStorage.setItem('qm_bots', JSON.stringify(bots));
+        // Загрузка ботов из JSON файла
+        async function loadBots() {
+            try {
+                const response = await fetch(BOTS_JSON_URL);
+                if (!response.ok) throw new Error('Failed to load');
+                bots = await response.json();
+                renderProducts();
+                if (isAdmin) renderAdminBots();
+            } catch (error) {
+                console.error('Error loading bots:', error);
+                document.getElementById('products-grid').innerHTML = '<div class="empty-state"><p>Ошибка загрузки ботов</p></div>';
+            }
         }
 
-        function saveOrders() {
-            localStorage.setItem('qm_orders', JSON.stringify(orders));
-        }
-
-        // ===== РЕНДЕР ТОВАРОВ =====
         function renderProducts() {
             const grid = document.getElementById('products-grid');
             const search = document.getElementById('search-input').value.toLowerCase();
@@ -918,12 +714,10 @@
             `).join('');
         }
 
-        // ===== ДЕТАЛИ БОТА =====
         function showBotDetail(id) {
             const bot = bots.find(b => b.id === id);
             if (!bot) return;
 
-            currentBotId = id;
             document.getElementById('detail-name').textContent = bot.name;
             document.getElementById('detail-price').textContent = `${bot.price} ₽`;
             document.getElementById('detail-description').textContent = bot.description || 'Описание отсутствует';
@@ -937,7 +731,6 @@
             showPage('bot-detail');
         }
 
-        // ===== МОИ ЗАКАЗЫ =====
         function renderOrders() {
             const list = document.getElementById('orders-list');
             const userOrders = orders.filter(o => o.userId === user.id);
@@ -966,159 +759,21 @@
             }).join('');
         }
 
-        // ===== АДМИНКА =====
-        function renderAdminProducts() {
-            const container = document.getElementById('admin-products');
+        function renderAdminBots() {
+            const container = document.getElementById('admin-bots-list');
             if (bots.length === 0) {
-                container.innerHTML = '<div class="empty-state"><p>Нет добавленных ботов</p></div>';
+                container.innerHTML = '<div class="empty-state"><p>Нет ботов</p></div>';
                 return;
             }
-            container.innerHTML = bots.map(b => `
-                <div class="admin-product-item">
-                    <div class="admin-product-thumb">
-                        ${b.image ? `<img src="${b.image}">` : ''}
+            container.innerHTML = '<h3 style="margin: 20px 0 12px; font-size: 18px;">Текущие боты:</h3>' + 
+                bots.map(b => `
+                    <div style="background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 12px; padding: 12px; margin-bottom: 8px;">
+                        <div style="font-weight: 600; margin-bottom: 4px;">${b.name}</div>
+                        <div style="color: #888; font-size: 13px;">${b.price} ₽</div>
                     </div>
-                    <div class="admin-product-info">
-                        <div class="admin-product-name">${b.name}</div>
-                        <div class="admin-product-price">${b.price} ₽</div>
-                    </div>
-                    <div class="admin-product-actions">
-                        <button class="admin-action-btn" onclick="editBot(${b.id})">✏️</button>
-                        <button class="admin-action-btn" onclick="openAssignModal(${b.id})">📦</button>
-                        <button class="admin-action-btn delete" onclick="deleteBot(${b.id})">🗑️</button>
-                    </div>
-                </div>
-            `).join('');
+                `).join('');
         }
 
-        // ===== МОДАЛКИ =====
-        function openAddModal() {
-            editingBotId = null;
-            document.getElementById('modal-title').textContent = 'Добавить бота';
-            document.getElementById('modal-save-btn').textContent = 'Добавить';
-            document.getElementById('bot-name').value = '';
-            document.getElementById('bot-price').value = '';
-            document.getElementById('bot-description').value = '';
-            document.getElementById('bot-image').value = '';
-            document.getElementById('modal-overlay').classList.add('active');
-        }
-
-        function editBot(id) {
-            const bot = bots.find(b => b.id === id);
-            if (!bot) return;
-            editingBotId = id;
-            document.getElementById('modal-title').textContent = 'Редактировать бота';
-            document.getElementById('modal-save-btn').textContent = 'Сохранить';
-            document.getElementById('bot-name').value = bot.name;
-            document.getElementById('bot-price').value = bot.price;
-            document.getElementById('bot-description').value = bot.description || '';
-            document.getElementById('bot-image').value = '';
-            document.getElementById('modal-overlay').classList.add('active');
-        }
-
-        function closeModal() {
-            document.getElementById('modal-overlay').classList.remove('active');
-            editingBotId = null;
-        }
-
-        function saveBot() {
-            const name = document.getElementById('bot-name').value.trim();
-            const price = parseInt(document.getElementById('bot-price').value);
-            const description = document.getElementById('bot-description').value.trim();
-            const fileInput = document.getElementById('bot-image');
-
-            if (!name || !price) {
-                showToast('⚠️ Заполните название и цену');
-                return;
-            }
-
-            const saveWithImage = (imageData) => {
-                if (editingBotId) {
-                    const bot = bots.find(b => b.id === editingBotId);
-                    if (bot) {
-                        bot.name = name;
-                        bot.price = price;
-                        bot.description = description;
-                        if (imageData) bot.image = imageData;
-                    }
-                    showToast('✅ Бот обновлён');
-                } else {
-                    bots.push({
-                        id: Date.now(),
-                        name, price, description,
-                        image: imageData || null
-                    });
-                    showToast('✅ Бот добавлен');
-                }
-                saveBots();
-                renderProducts();
-                renderAdminProducts();
-                closeModal();
-            };
-
-            if (fileInput.files && fileInput.files[0]) {
-                const reader = new FileReader();
-                reader.onload = (e) => saveWithImage(e.target.result);
-                reader.readAsDataURL(fileInput.files[0]);
-            } else {
-                saveWithImage(null);
-            }
-        }
-
-        function deleteBot(id) {
-            if (confirm('Удалить этого бота?')) {
-                bots = bots.filter(b => b.id !== id);
-                saveBots();
-                renderProducts();
-                renderAdminProducts();
-                showToast('️ Бот удалён');
-            }
-        }
-
-        // ===== НАЗНАЧЕНИЕ ЗАКАЗА =====
-        function openAssignModal(botId) {
-            const bot = bots.find(b => b.id === botId);
-            if (!bot) return;
-            assigningBotId = botId;
-            document.getElementById('assign-bot-name').value = bot.name;
-            document.getElementById('assign-user-id').value = '';
-            document.getElementById('assign-modal-overlay').classList.add('active');
-        }
-
-        function closeAssignModal() {
-            document.getElementById('assign-modal-overlay').classList.remove('active');
-            assigningBotId = null;
-        }
-
-        function confirmAssign() {
-            const userId = parseInt(document.getElementById('assign-user-id').value);
-            if (!userId) {
-                showToast('⚠️ Введите Telegram ID пользователя');
-                return;
-            }
-
-            const bot = bots.find(b => b.id === assigningBotId);
-            if (!bot) return;
-
-            // Проверяем есть ли уже такой заказ
-            const exists = orders.find(o => o.userId === userId && o.botId === assigningBotId);
-            if (exists) {
-                showToast('⚠️ Этот бот уже назначен пользователю');
-                return;
-            }
-
-            orders.push({
-                userId,
-                botId: assigningBotId,
-                price: bot.price,
-                date: new Date().toISOString()
-            });
-            saveOrders();
-            closeAssignModal();
-            showToast(`✅ ${bot.name} назначен пользователю ${userId}`);
-        }
-
-        // ===== НАВИГАЦИЯ =====
         function showPage(name) {
             document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
@@ -1127,7 +782,6 @@
             const navItem = document.querySelector(`.nav-item[data-page="${name}"]`);
             if (navItem) navItem.classList.add('active');
 
-            if (name === 'admin') renderAdminProducts();
             if (name === 'orders') renderOrders();
             window.scrollTo(0, 0);
         }
@@ -1136,34 +790,20 @@
             item.addEventListener('click', () => showPage(item.dataset.page));
         });
 
-        // ===== ПРОФИЛЬ =====
         function updateProfile() {
             document.getElementById('profile-name').textContent = user.first_name || 'Пользователь';
             document.getElementById('profile-username').textContent = '@' + (user.username || 'user');
             document.getElementById('profile-avatar').textContent = (user.first_name || '?')[0].toUpperCase();
-            
-            const userOrderCount = orders.filter(o => o.userId === user.id).length;
-            document.getElementById('profile-date').textContent = `В магазине с ${new Date().toLocaleDateString('ru-RU')}`;
             
             if (isAdmin) {
                 document.getElementById('admin-stat').style.display = 'flex';
             }
         }
 
-        // ===== ЗАКРЫТИЕ МОДАЛОК =====
-        document.getElementById('modal-overlay').addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) closeModal();
-        });
-        document.getElementById('assign-modal-overlay').addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) closeAssignModal();
-        });
-
         document.getElementById('search-input').addEventListener('input', renderProducts);
 
-        // ===== СТАРТ =====
-        saveUser();
         updateProfile();
-        renderProducts();
+        loadBots();
     </script>
 </body>
 </html>
