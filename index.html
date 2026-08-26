@@ -25,7 +25,6 @@
         .search-bar input:focus { border-color: #666; }
         .search-bar input::placeholder { color: #555; }
 
-        /* TABS */
         .tabs { display: flex; gap: 8px; padding: 0 20px; margin-bottom: 16px; }
         .tab { flex: 1; padding: 12px; text-align: center; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; font-size: 14px; font-weight: 600; color: #888; cursor: pointer; transition: all 0.2s; }
         .tab.active { background: #fff; color: #000; border-color: #fff; }
@@ -76,7 +75,6 @@
         .bot-detail-btn { width: 100%; padding: 18px; background: linear-gradient(135deg, #fff, #ccc); border: none; border-radius: 16px; color: #000; font-size: 16px; font-weight: 700; text-decoration: none; text-align: center; display: block; }
         .bot-detail-back { margin-top: 12px; padding: 14px; background: transparent; border: 1px solid #333; border-radius: 14px; color: #fff; font-size: 15px; cursor: pointer; width: 100%; }
 
-        /* Отзывы в деталях */
         .reviews-section { margin-top: 20px; }
         .reviews-section h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
         .review-item { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 12px; padding: 12px; margin-bottom: 8px; }
@@ -87,7 +85,6 @@
         .review-date { font-size: 11px; color: #666; margin-top: 4px; }
         .btn-write-review { width: 100%; padding: 14px; background: #2a2a2a; border: 1px solid #333; border-radius: 12px; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 12px; }
 
-        /* Новости */
         .news-tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 16px; scrollbar-width: none; }
         .news-tabs::-webkit-scrollbar { display: none; }
         .news-tab { flex-shrink: 0; padding: 10px 16px; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; font-size: 13px; font-weight: 600; color: #888; cursor: pointer; white-space: nowrap; }
@@ -97,13 +94,11 @@
         .news-text { font-size: 13px; color: #aaa; line-height: 1.6; margin-bottom: 8px; }
         .news-date { font-size: 11px; color: #666; }
 
-        /* Админка */
         .admin-title { font-size: 24px; font-weight: 800; margin: 20px 0; background: linear-gradient(135deg, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .admin-hint { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 16px; padding: 16px; font-size: 14px; line-height: 1.7; color: #aaa; margin-bottom: 20px; }
         .admin-hint code { background: #2a2a2a; padding: 3px 8px; border-radius: 6px; font-size: 12px; color: #fff; display: inline-block; margin: 4px 0; }
         .admin-hint pre { background: #0a0a0a; border: 1px solid #2a2a2a; border-radius: 10px; padding: 12px; margin: 12px 0; overflow-x: auto; font-size: 12px; line-height: 1.5; }
 
-        /* Статистика */
         .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
         .stat-card { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 14px; padding: 16px; }
         .stat-card-value { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
@@ -196,7 +191,7 @@
             <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
         </div>
 
-        <!-- ДЕТАЛИ БОТА -->
+        <!-- ДЕТАЛИ -->
         <div class="page" id="page-bot-detail">
             <div class="bot-detail-page">
                 <div class="bot-detail-icon">
@@ -206,9 +201,8 @@
                 <div class="bot-detail-price" id="detail-price"></div>
                 <div class="bot-detail-rating" id="detail-rating"></div>
                 <div class="bot-detail-description" id="detail-description"></div>
-                <a href="https://t.me/z9hie" class="bot-detail-btn" target="_blank">Купить</a>
+                <a href="https://t.me/z9hie" class="bot-detail-btn" target="_blank">Купить / Заказать</a>
                 <button class="bot-detail-back" onclick="showPage('catalog')">Назад</button>
-
                 <div class="reviews-section" id="detail-reviews"></div>
             </div>
             <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
@@ -302,13 +296,27 @@
                 </div>
 
                 <div class="admin-section">
+                    <div class="admin-section-title">Управление услугами</div>
+                    <div class="admin-hint">
+                        Добавляй услуги в массив <code>services</code> в коде:<br>
+<pre>{
+  id: 1,
+  name: "Настройка бота",
+  price: 500,
+  description: "Описание услуги..."
+},</pre>
+                    </div>
+                    <div class="admin-bot-list" id="admin-services-list"></div>
+                </div>
+
+                <div class="admin-section">
                     <div class="admin-section-title">Разрешить отзыв</div>
                     <div class="form-group">
                         <label>Username покупателя (без @)</label>
                         <input type="text" id="reviewer-username" placeholder="username">
                     </div>
                     <div class="form-group">
-                        <label>Бот</label>
+                        <label>Бот/Услуга</label>
                         <select id="reviewer-bot"></select>
                     </div>
                     <button class="modal-btn-primary" onclick="allowReview()">Разрешить</button>
@@ -317,7 +325,7 @@
                 <div class="admin-section">
                     <div class="admin-section-title">Добавить новость</div>
                     <div class="form-group">
-                        <label>Бот</label>
+                        <label>Бот/Услуга</label>
                         <select id="news-bot"></select>
                     </div>
                     <div class="form-group">
@@ -398,7 +406,7 @@
         const ADMIN_ID = 5640325235;
 
         // ============================================
-        // ДАННЫЕ
+        // БОТЫ — добавляй сюда
         // ============================================
         const bots = [
             { id: 1, name: "Бот-модератор", price: 119, description: "Автомодерация чата в Telegram. Удаление спама, мата, рекламы по правилам. Настраивается под ваш чат за пару часов." },
@@ -406,7 +414,15 @@
             { id: 3, name: "Бот-маркет", price: 149, description: "Готовый маркетплейс. Настрою под ваш бизнес за 1 день. От вас — только ТЗ по дизайну и товарам." }
         ];
 
-        const services = []; // Пока пусто, добавишь потом
+        // ============================================
+        // УСЛУГИ — добавляй сюда
+        // ============================================
+        const services = [
+            { id: 1, name: "Настройка бота", price: 500, description: "Помогу настроить любого бота под ваши нужды. Установка, конфигурация, тестирование." }
+            // Добавляй новые услуги сюда
+        ];
+
+        // ============================================
 
         let favorites = JSON.parse(localStorage.getItem('qm_fav') || '[]');
         let orders = JSON.parse(localStorage.getItem('qm_orders') || '[]');
@@ -417,7 +433,8 @@
 
         let currentTab = 'bots';
         let currentNewsBot = 'all';
-        let currentReviewBotId = null;
+        let currentReviewItemId = null;
+        let currentReviewType = 'bot'; // 'bot' или 'service'
         let selectedStars = 5;
 
         const user = tg?.initDataUnsafe?.user || { first_name: 'Гость', username: 'guest', id: 0 };
@@ -436,6 +453,14 @@
         function saveNews() { localStorage.setItem('qm_news', JSON.stringify(news)); }
         function saveReviewers() { localStorage.setItem('qm_reviewers', JSON.stringify(allowedReviewers)); }
 
+        function getAllItems() {
+            return currentTab === 'bots' ? bots : services;
+        }
+
+        function getItemById(id) {
+            return bots.find(b => b.id === id) || services.find(s => s.id === id);
+        }
+
         function toggleFav(id) {
             const i = favorites.indexOf(id);
             if (i > -1) { favorites.splice(i, 1); showToast('Удалено из избранного'); }
@@ -445,11 +470,11 @@
             renderFavorites();
         }
 
-        function getBotRating(botId) {
-            const botReviews = reviews.filter(r => r.botId === botId);
-            if (botReviews.length === 0) return null;
-            const avg = botReviews.reduce((s, r) => s + r.rating, 0) / botReviews.length;
-            return { avg: avg.toFixed(1), count: botReviews.length };
+        function getBotRating(itemId) {
+            const itemReviews = reviews.filter(r => r.itemId === itemId);
+            if (itemReviews.length === 0) return null;
+            const avg = itemReviews.reduce((s, r) => s + r.rating, 0) / itemReviews.length;
+            return { avg: avg.toFixed(1), count: itemReviews.length };
         }
 
         function renderStars(rating) {
@@ -462,7 +487,7 @@
         function renderProducts() {
             const grid = document.getElementById('products-grid');
             const search = document.getElementById('search-input').value.toLowerCase();
-            const items = currentTab === 'bots' ? bots : services;
+            const items = getAllItems();
             const filtered = items.filter(b => b.name.toLowerCase().includes(search));
 
             if (filtered.length === 0) {
@@ -488,9 +513,10 @@
 
         function renderFavorites() {
             const grid = document.getElementById('favorites-grid');
-            const favBots = bots.filter(b => favorites.includes(b.id));
-            if (favBots.length === 0) { grid.innerHTML = '<div class="empty-state"><p>Нет избранных ботов</p></div>'; return; }
-            grid.innerHTML = favBots.map(b => {
+            const allItems = [...bots, ...services];
+            const favItems = allItems.filter(b => favorites.includes(b.id));
+            if (favItems.length === 0) { grid.innerHTML = '<div class="empty-state"><p>Нет избранных</p></div>'; return; }
+            grid.innerHTML = favItems.map(b => {
                 const rating = getBotRating(b.id);
                 return `
                     <div class="product-card" onclick="showBotDetail(${b.id})">
@@ -506,11 +532,11 @@
         }
 
         function showBotDetail(id) {
-            const bot = bots.find(b => b.id === id);
-            if (!bot) return;
-            document.getElementById('detail-name').textContent = bot.name;
-            document.getElementById('detail-price').textContent = `${bot.price} ₽`;
-            document.getElementById('detail-description').textContent = bot.description || 'Описание отсутствует';
+            const item = getItemById(id);
+            if (!item) return;
+            document.getElementById('detail-name').textContent = item.name;
+            document.getElementById('detail-price').textContent = `${item.price} ₽`;
+            document.getElementById('detail-description').textContent = item.description || 'Описание отсутствует';
 
             const rating = getBotRating(id);
             document.getElementById('detail-rating').innerHTML = rating
@@ -521,19 +547,19 @@
             showPage('bot-detail');
         }
 
-        function renderBotReviews(botId) {
+        function renderBotReviews(itemId) {
             const container = document.getElementById('detail-reviews');
-            const botReviews = reviews.filter(r => r.botId === botId);
-            const bot = bots.find(b => b.id === botId);
-            const userReview = botReviews.find(r => r.userId === user.id);
-            const canReview = allowedReviewers.some(a => a.botId === botId && (a.username === user.username || a.userId === user.id));
+            const itemReviews = reviews.filter(r => r.itemId === itemId);
+            const item = getItemById(itemId);
+            const userReview = itemReviews.find(r => r.userId === user.id);
+            const canReview = allowedReviewers.some(a => a.itemId === itemId && (a.username === user.username || a.userId === user.id));
 
             let html = '<h3>Отзывы</h3>';
 
-            if (botReviews.length === 0) {
+            if (itemReviews.length === 0) {
                 html += '<div class="empty-state" style="padding: 20px;"><p>Пока нет отзывов</p></div>';
             } else {
-                html += botReviews.map(r => `
+                html += itemReviews.map(r => `
                     <div class="review-item">
                         <div class="review-header">
                             <span class="review-author">@${r.username || 'anonim'}</span>
@@ -546,9 +572,9 @@
             }
 
             if (userReview) {
-                html += `<button class="btn-write-review" onclick="openReviewModal(${botId}, true)">Изменить отзыв</button>`;
+                html += `<button class="btn-write-review" onclick="openReviewModal(${itemId}, true)">Изменить отзыв</button>`;
             } else if (canReview) {
-                html += `<button class="btn-write-review" onclick="openReviewModal(${botId}, false)">Оставить отзыв</button>`;
+                html += `<button class="btn-write-review" onclick="openReviewModal(${itemId}, false)">Оставить отзыв</button>`;
             } else if (user.id) {
                 html += '<div style="text-align:center; color:#666; font-size:13px; margin-top:12px;">Отзыв могут оставить только покупатели</div>';
             }
@@ -556,13 +582,13 @@
             container.innerHTML = html;
         }
 
-        function openReviewModal(botId, isEdit) {
-            currentReviewBotId = botId;
-            const bot = bots.find(b => b.id === botId);
-            document.getElementById('review-modal-title').textContent = isEdit ? 'Изменить отзыв' : `Отзыв: ${bot.name}`;
+        function openReviewModal(itemId, isEdit) {
+            currentReviewItemId = itemId;
+            const item = getItemById(itemId);
+            document.getElementById('review-modal-title').textContent = isEdit ? 'Изменить отзыв' : `Отзыв: ${item.name}`;
 
             if (isEdit) {
-                const existing = reviews.find(r => r.botId === botId && r.userId === user.id);
+                const existing = reviews.find(r => r.itemId === itemId && r.userId === user.id);
                 if (existing) {
                     selectedStars = existing.rating;
                     document.getElementById('review-text').value = existing.text;
@@ -578,7 +604,7 @@
 
         function closeReviewModal() {
             document.getElementById('review-modal').classList.remove('active');
-            currentReviewBotId = null;
+            currentReviewItemId = null;
         }
 
         function updateStarsUI() {
@@ -595,13 +621,15 @@
         });
 
         function submitReview() {
-            if (!currentReviewBotId) return;
+            if (!currentReviewItemId) return;
             const text = document.getElementById('review-text').value.trim();
             if (!text) { showToast('Напиши текст отзыва'); return; }
 
-            const existing = reviews.findIndex(r => r.botId === currentReviewBotId && r.userId === user.id);
+            const item = getItemById(currentReviewItemId);
+            const existing = reviews.findIndex(r => r.itemId === currentReviewItemId && r.userId === user.id);
             const reviewData = {
-                botId: currentReviewBotId,
+                itemId: currentReviewItemId,
+                itemType: currentTab,
                 userId: user.id,
                 username: user.username,
                 rating: selectedStars,
@@ -619,7 +647,7 @@
 
             saveReviews();
             closeReviewModal();
-            renderBotReviews(currentReviewBotId);
+            renderBotReviews(currentReviewItemId);
             renderProducts();
         }
 
@@ -628,12 +656,12 @@
             const userOrders = orders.filter(o => o.userId === user.id);
             if (userOrders.length === 0) { list.innerHTML = '<div class="empty-state"><p>У вас пока нет заказов</p></div>'; return; }
             list.innerHTML = userOrders.map(o => {
-                const bot = bots.find(b => b.id === o.botId);
-                if (!bot) return '';
+                const item = getItemById(o.itemId);
+                if (!item) return '';
                 return `
                     <div class="order-card">
-                        <div class="order-name">${bot.name}</div>
-                        <div class="order-price">${bot.price} ₽</div>
+                        <div class="order-name">${item.name}</div>
+                        <div class="order-price">${item.price} ₽</div>
                         <span class="order-status">Активен</span>
                         <div class="order-date">${o.date}</div>
                     </div>
@@ -644,11 +672,12 @@
         function renderNews() {
             const tabsContainer = document.getElementById('news-tabs');
             const listContainer = document.getElementById('news-list');
+            const allItems = [...bots, ...services];
 
             tabsContainer.innerHTML = `<div class="news-tab ${currentNewsBot === 'all' ? 'active' : ''}" onclick="filterNews('all')">Все</div>` +
-                bots.map(b => `<div class="news-tab ${currentNewsBot === b.id ? 'active' : ''}" onclick="filterNews(${b.id})">${b.name}</div>`).join('');
+                allItems.map(b => `<div class="news-tab ${currentNewsBot === b.id ? 'active' : ''}" onclick="filterNews(${b.id})">${b.name}</div>`).join('');
 
-            const filtered = currentNewsBot === 'all' ? news : news.filter(n => n.botId === currentNewsBot);
+            const filtered = currentNewsBot === 'all' ? news : news.filter(n => n.itemId === currentNewsBot);
 
             if (filtered.length === 0) {
                 listContainer.innerHTML = '<div class="empty-state"><p>Новостей пока нет</p></div>';
@@ -656,10 +685,10 @@
             }
 
             listContainer.innerHTML = filtered.map(n => {
-                const bot = bots.find(b => b.id === n.botId);
+                const item = allItems.find(b => b.id === n.itemId);
                 return `
                     <div class="news-item">
-                        <div class="news-title">${bot ? bot.name + ' — ' : ''}${n.title}</div>
+                        <div class="news-title">${item ? item.name + ' — ' : ''}${n.title}</div>
                         <div class="news-text">${n.text}</div>
                         <div class="news-date">${n.date}</div>
                     </div>
@@ -667,8 +696,8 @@
             }).join('');
         }
 
-        function filterNews(botId) {
-            currentNewsBot = botId;
+        function filterNews(itemId) {
+            currentNewsBot = itemId;
             renderNews();
         }
 
@@ -677,9 +706,10 @@
             const totalOrders = orders.length;
             const totalReviews = reviews.length;
             const totalUsers = uniqueUsers.length;
+            const allItems = [...bots, ...services];
             const totalRevenue = orders.reduce((s, o) => {
-                const bot = bots.find(b => b.id === o.botId);
-                return s + (bot ? bot.price : 0);
+                const item = allItems.find(b => b.id === o.itemId);
+                return s + (item ? item.price : 0);
             }, 0);
 
             container.innerHTML = `
@@ -690,11 +720,15 @@
             `;
         }
 
-        function renderAdminBots() {
-            const container = document.getElementById('admin-bot-list');
-            container.innerHTML = bots.map(b => {
+        function renderAdminItems(items, containerId, type) {
+            const container = document.getElementById(containerId);
+            if (items.length === 0) {
+                container.innerHTML = '<div class="empty-state" style="padding: 20px;"><p>Нет добавленных ' + (type === 'bots' ? 'ботов' : 'услуг') + '</p></div>';
+                return;
+            }
+            container.innerHTML = items.map(b => {
                 const rating = getBotRating(b.id);
-                const orderCount = orders.filter(o => o.botId === b.id).length;
+                const orderCount = orders.filter(o => o.itemId === b.id).length;
                 return `
                     <div class="admin-bot-item">
                         <div class="admin-bot-info">
@@ -707,39 +741,45 @@
                     </div>
                 `;
             }).join('');
+        }
+
+        function renderAdminBots() {
+            renderAdminItems(bots, 'admin-bot-list', 'bots');
+            renderAdminItems(services, 'admin-services-list', 'services');
 
             // Заполняем селекты
+            const allItems = [...bots, ...services];
+            const options = allItems.map(b => `<option value="${b.id}">${b.name}</option>`).join('');
             const reviewerSelect = document.getElementById('reviewer-bot');
             const newsSelect = document.getElementById('news-bot');
-            const options = bots.map(b => `<option value="${b.id}">${b.name}</option>`).join('');
-            reviewerSelect.innerHTML = options;
-            newsSelect.innerHTML = options;
+            if (reviewerSelect) reviewerSelect.innerHTML = options;
+            if (newsSelect) newsSelect.innerHTML = options;
         }
 
         function allowReview() {
             const username = document.getElementById('reviewer-username').value.trim().replace('@', '');
-            const botId = parseInt(document.getElementById('reviewer-bot').value);
+            const itemId = parseInt(document.getElementById('reviewer-bot').value);
             if (!username) { showToast('Введи username'); return; }
 
-            if (allowedReviewers.some(a => a.botId === botId && a.username === username)) {
+            if (allowedReviewers.some(a => a.itemId === itemId && a.username === username)) {
                 showToast('Уже разрешён');
                 return;
             }
 
-            allowedReviewers.push({ botId, username });
+            allowedReviewers.push({ itemId, username });
             saveReviewers();
             document.getElementById('reviewer-username').value = '';
             showToast('Отзыв разрешён для @' + username);
         }
 
         function addNews() {
-            const botId = parseInt(document.getElementById('news-bot').value);
+            const itemId = parseInt(document.getElementById('news-bot').value);
             const title = document.getElementById('news-title').value.trim();
             const text = document.getElementById('news-text').value.trim();
             if (!title || !text) { showToast('Заполни все поля'); return; }
 
             news.unshift({
-                botId,
+                itemId,
                 title,
                 text,
                 date: new Date().toLocaleDateString('ru-RU')
@@ -750,10 +790,10 @@
             showToast('Новость опубликована');
         }
 
-        function copyOrderLink(botId) {
-            const bot = bots.find(b => b.id === botId);
-            if (!bot) return;
-            const link = `${window.location.origin}${window.location.pathname}?order=${botId}`;
+        function copyOrderLink(itemId) {
+            const item = getItemById(itemId);
+            if (!item) return;
+            const link = `${window.location.origin}${window.location.pathname}?order=${itemId}`;
             if (navigator.clipboard) {
                 navigator.clipboard.writeText(link).then(() => showToast('Ссылка скопирована'));
             } else {
@@ -771,14 +811,14 @@
             const params = new URLSearchParams(window.location.search);
             const orderId = params.get('order');
             if (orderId) {
-                const botId = parseInt(orderId);
-                const bot = bots.find(b => b.id === botId);
-                if (bot) {
-                    const exists = orders.find(o => o.userId === user.id && o.botId === botId);
+                const itemId = parseInt(orderId);
+                const item = getItemById(itemId);
+                if (item) {
+                    const exists = orders.find(o => o.userId === user.id && o.itemId === itemId);
                     if (!exists) {
-                        orders.push({ userId: user.id, botId, date: new Date().toLocaleDateString('ru-RU') });
+                        orders.push({ userId: user.id, itemId, date: new Date().toLocaleDateString('ru-RU') });
                         saveOrders();
-                        showToast(`"${bot.name}" добавлен в заказы`);
+                        showToast(`"${item.name}" добавлен в заказы`);
                     } else {
                         showToast('Уже в заказах');
                     }
@@ -809,6 +849,7 @@
                 document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 currentTab = tab.dataset.tab;
+                document.getElementById('search-input').value = '';
                 renderProducts();
             });
         });
