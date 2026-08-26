@@ -14,153 +14,44 @@
             color: #fff;
             min-height: 100vh;
         }
-        .app {
-            max-width: 480px;
-            margin: 0 auto;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+        .app { max-width: 480px; margin: 0 auto; min-height: 100vh; display: flex; flex-direction: column; }
 
-        .header {
-            padding: 20px;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 50;
-            background: rgba(10,10,10,0.9);
-            backdrop-filter: blur(20px);
-        }
-        .logo {
-            font-size: 28px;
-            font-weight: 900;
-            background: linear-gradient(135deg, #fff, #888, #fff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+        .header { padding: 20px; text-align: center; position: sticky; top: 0; z-index: 50; background: rgba(10,10,10,0.9); backdrop-filter: blur(20px); }
+        .logo { font-size: 28px; font-weight: 900; background: linear-gradient(135deg, #fff, #888, #fff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .logo span { font-weight: 400; opacity: 0.7; }
 
-        .search-bar { padding: 0 20px; margin-bottom: 20px; }
-        .search-bar input {
-            width: 100%;
-            padding: 14px 18px 14px 44px;
-            background: #1a1a1a;
-            border: 1px solid #333;
-            border-radius: 14px;
-            color: #fff;
-            font-size: 15px;
-            outline: none;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E");
-            background-repeat: no-repeat;
-            background-position: 14px center;
-        }
+        .search-bar { padding: 0 20px; margin-bottom: 16px; }
+        .search-bar input { width: 100%; padding: 14px 18px 14px 44px; background: #1a1a1a; border: 1px solid #333; border-radius: 14px; color: #fff; font-size: 15px; outline: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='m21 21-4.35-4.35'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: 14px center; }
         .search-bar input:focus { border-color: #666; }
         .search-bar input::placeholder { color: #555; }
 
-        .products-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-            padding: 0 20px;
-        }
-        .product-card {
-            background: linear-gradient(145deg, #1e1e1e, #141414);
-            border: 1px solid #2a2a2a;
-            border-radius: 18px;
-            padding: 16px;
-            cursor: pointer;
-            transition: all 0.2s;
-            position: relative;
-            min-height: 120px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+        /* TABS */
+        .tabs { display: flex; gap: 8px; padding: 0 20px; margin-bottom: 16px; }
+        .tab { flex: 1; padding: 12px; text-align: center; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 12px; font-size: 14px; font-weight: 600; color: #888; cursor: pointer; transition: all 0.2s; }
+        .tab.active { background: #fff; color: #000; border-color: #fff; }
+
+        .products-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 20px; }
+        .product-card { background: linear-gradient(145deg, #1e1e1e, #141414); border: 1px solid #2a2a2a; border-radius: 18px; padding: 16px; cursor: pointer; transition: all 0.2s; position: relative; min-height: 120px; display: flex; flex-direction: column; justify-content: space-between; }
         .product-card:active { transform: scale(0.96); border-color: #444; }
+        .product-fav { position: absolute; top: 10px; right: 10px; background: none; border: none; cursor: pointer; padding: 4px; z-index: 2; }
+        .product-fav svg { width: 22px; height: 22px; stroke: #555; fill: none; stroke-width: 1.8; transition: all 0.2s; }
+        .product-fav.active svg { stroke: #ff3b3b; fill: #ff3b3b; filter: drop-shadow(0 0 6px rgba(255,59,59,0.5)); }
+        .product-name { font-size: 15px; font-weight: 700; margin-bottom: 8px; line-height: 1.3; padding-right: 30px; }
+        .product-price { font-size: 18px; font-weight: 800; background: linear-gradient(135deg, #fff, #aaa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .product-rating { font-size: 12px; color: #888; margin-top: 4px; }
+        .product-rating .stars { color: #ffb400; -webkit-text-fill-color: #ffb400; }
 
-        .product-fav {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
-            border: none;
-            cursor: pointer;
-            padding: 4px;
-            transition: transform 0.2s;
-            z-index: 2;
-        }
-        .product-fav:active { transform: scale(1.3); }
-        .product-fav svg {
-            width: 22px; height: 22px;
-            stroke: #555;
-            fill: none;
-            stroke-width: 1.8;
-            transition: all 0.2s;
-        }
-        .product-fav.active svg {
-            stroke: #ff3b3b;
-            fill: #ff3b3b;
-            filter: drop-shadow(0 0 6px rgba(255,59,59,0.5));
-        }
+        .empty-state { text-align: center; padding: 60px 20px; color: #555; grid-column: 1 / -1; }
 
-        .product-name {
-            font-size: 15px;
-            font-weight: 700;
-            margin-bottom: 8px;
-            line-height: 1.3;
-            padding-right: 30px;
-        }
-        .product-price {
-            font-size: 18px;
-            font-weight: 800;
-            background: linear-gradient(135deg, #fff, #aaa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .empty-state {
-            text-align: center;
-            padding: 60px 20px;
-            color: #555;
-            grid-column: 1 / -1;
-        }
-
-        .profile-page, .orders-page, .bot-detail-page, .admin-panel, .favorites-page {
-            padding: 0 20px;
-            flex: 1;
-        }
+        .profile-page, .orders-page, .bot-detail-page, .admin-panel, .favorites-page, .news-page, .reviews-page { padding: 0 20px; flex: 1; }
         .profile-header { text-align: center; padding: 24px 0 20px; }
-        .profile-avatar {
-            width: 90px; height: 90px;
-            background: linear-gradient(135deg, #333, #1a1a1a);
-            border: 2px solid #444;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 38px;
-            font-weight: 800;
-            margin: 0 auto 16px;
-        }
+        .profile-avatar { width: 90px; height: 90px; background: linear-gradient(135deg, #333, #1a1a1a); border: 2px solid #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 800; margin: 0 auto 16px; }
         .profile-header h2 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
         .profile-header .username { color: #666; font-size: 14px; }
         .profile-date { color: #555; font-size: 13px; margin-top: 10px; }
 
-        .profile-stats {
-            background: #1e1e1e;
-            border: 1px solid #2a2a2a;
-            border-radius: 18px;
-            overflow: hidden;
-            margin-top: 16px;
-        }
-        .stat-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 20px;
-            border-bottom: 1px solid #2a2a2a;
-            cursor: pointer;
-        }
+        .profile-stats { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 18px; overflow: hidden; margin-top: 16px; }
+        .stat-item { display: flex; justify-content: space-between; align-items: center; padding: 18px 20px; border-bottom: 1px solid #2a2a2a; cursor: pointer; }
         .stat-item:last-child { border-bottom: none; }
         .stat-label { font-size: 15px; font-weight: 500; }
         .stat-arrow { color: #555; font-size: 20px; }
@@ -168,284 +59,119 @@
         .page-title { font-size: 24px; font-weight: 800; margin: 20px 0; }
 
         .orders-list { display: flex; flex-direction: column; gap: 12px; }
-        .favorites-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
-        }
-        .order-card {
-            background: #1e1e1e;
-            border: 1px solid #2a2a2a;
-            border-radius: 16px;
-            padding: 16px;
-        }
+        .favorites-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .order-card { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 16px; padding: 16px; }
         .order-name { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
         .order-price { font-size: 14px; color: #888; margin-bottom: 8px; }
-        .order-status {
-            display: inline-block;
-            padding: 4px 12px;
-            background: #4CAF50;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-        }
+        .order-status { display: inline-block; padding: 4px 12px; background: #4CAF50; border-radius: 20px; font-size: 11px; font-weight: 700; }
         .order-date { font-size: 12px; color: #666; margin-top: 6px; }
 
-        .bot-detail-icon {
-            width: 100px; height: 100px;
-            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
-            border: 1px solid #333;
-            border-radius: 24px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 20px auto 20px;
-        }
-        .bot-detail-icon svg {
-            width: 50px; height: 50px;
-            stroke: #666;
-            fill: none;
-            stroke-width: 1.5;
-        }
-        .bot-detail-name {
-            font-size: 26px;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 8px;
-        }
-        .bot-detail-price {
-            font-size: 22px;
-            font-weight: 800;
-            text-align: center;
-            background: linear-gradient(135deg, #fff, #aaa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 24px;
-        }
-        .bot-detail-description {
-            font-size: 15px;
-            line-height: 1.7;
-            color: #aaa;
-            margin-bottom: 24px;
-            padding: 16px;
-            background: #1e1e1e;
-            border: 1px solid #2a2a2a;
-            border-radius: 16px;
-        }
-        .bot-detail-btn {
-            width: 100%;
-            padding: 18px;
-            background: linear-gradient(135deg, #fff, #ccc);
-            border: none;
-            border-radius: 16px;
-            color: #000;
-            font-size: 16px;
-            font-weight: 700;
-            text-decoration: none;
-            text-align: center;
-            display: block;
-        }
-        .bot-detail-back {
-            margin-top: 12px;
-            padding: 14px;
-            background: transparent;
-            border: 1px solid #333;
-            border-radius: 14px;
-            color: #fff;
-            font-size: 15px;
-            cursor: pointer;
-            width: 100%;
-        }
+        .bot-detail-icon { width: 100px; height: 100px; background: linear-gradient(135deg, #2a2a2a, #1a1a1a); border: 1px solid #333; border-radius: 24px; display: flex; align-items: center; justify-content: center; margin: 20px auto 20px; }
+        .bot-detail-icon svg { width: 50px; height: 50px; stroke: #666; fill: none; stroke-width: 1.5; }
+        .bot-detail-name { font-size: 26px; font-weight: 800; text-align: center; margin-bottom: 8px; }
+        .bot-detail-price { font-size: 22px; font-weight: 800; text-align: center; background: linear-gradient(135deg, #fff, #aaa); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 16px; }
+        .bot-detail-rating { text-align: center; margin-bottom: 20px; font-size: 14px; color: #888; }
+        .bot-detail-rating .stars { color: #ffb400; font-size: 18px; }
+        .bot-detail-description { font-size: 15px; line-height: 1.7; color: #aaa; margin-bottom: 20px; padding: 16px; background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 16px; }
+        .bot-detail-btn { width: 100%; padding: 18px; background: linear-gradient(135deg, #fff, #ccc); border: none; border-radius: 16px; color: #000; font-size: 16px; font-weight: 700; text-decoration: none; text-align: center; display: block; }
+        .bot-detail-back { margin-top: 12px; padding: 14px; background: transparent; border: 1px solid #333; border-radius: 14px; color: #fff; font-size: 15px; cursor: pointer; width: 100%; }
 
-        .admin-title {
-            font-size: 24px;
-            font-weight: 800;
-            margin: 20px 0;
-            background: linear-gradient(135deg, #fff, #888);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .admin-hint {
-            background: #1e1e1e;
-            border: 1px solid #2a2a2a;
-            border-radius: 16px;
-            padding: 16px;
-            font-size: 14px;
-            line-height: 1.7;
-            color: #aaa;
-            margin-bottom: 20px;
-        }
-        .admin-hint code {
-            background: #2a2a2a;
-            padding: 3px 8px;
-            border-radius: 6px;
-            font-size: 12px;
-            color: #fff;
-            display: inline-block;
-            margin: 4px 0;
-        }
-        .admin-hint pre {
-            background: #0a0a0a;
-            border: 1px solid #2a2a2a;
-            border-radius: 10px;
-            padding: 12px;
-            margin: 12px 0;
-            overflow-x: auto;
-            font-size: 12px;
-            line-height: 1.5;
-        }
+        /* Отзывы в деталях */
+        .reviews-section { margin-top: 20px; }
+        .reviews-section h3 { font-size: 18px; font-weight: 700; margin-bottom: 12px; }
+        .review-item { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 12px; padding: 12px; margin-bottom: 8px; }
+        .review-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+        .review-author { font-size: 13px; font-weight: 600; color: #fff; }
+        .review-stars { color: #ffb400; font-size: 14px; }
+        .review-text { font-size: 13px; color: #aaa; line-height: 1.5; }
+        .review-date { font-size: 11px; color: #666; margin-top: 4px; }
+        .btn-write-review { width: 100%; padding: 14px; background: #2a2a2a; border: 1px solid #333; border-radius: 12px; color: #fff; font-size: 14px; font-weight: 600; cursor: pointer; margin-top: 12px; }
+
+        /* Новости */
+        .news-tabs { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 12px; margin-bottom: 16px; scrollbar-width: none; }
+        .news-tabs::-webkit-scrollbar { display: none; }
+        .news-tab { flex-shrink: 0; padding: 10px 16px; background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 10px; font-size: 13px; font-weight: 600; color: #888; cursor: pointer; white-space: nowrap; }
+        .news-tab.active { background: #fff; color: #000; border-color: #fff; }
+        .news-item { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 14px; padding: 16px; margin-bottom: 10px; }
+        .news-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+        .news-text { font-size: 13px; color: #aaa; line-height: 1.6; margin-bottom: 8px; }
+        .news-date { font-size: 11px; color: #666; }
+
+        /* Админка */
+        .admin-title { font-size: 24px; font-weight: 800; margin: 20px 0; background: linear-gradient(135deg, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .admin-hint { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 16px; padding: 16px; font-size: 14px; line-height: 1.7; color: #aaa; margin-bottom: 20px; }
+        .admin-hint code { background: #2a2a2a; padding: 3px 8px; border-radius: 6px; font-size: 12px; color: #fff; display: inline-block; margin: 4px 0; }
+        .admin-hint pre { background: #0a0a0a; border: 1px solid #2a2a2a; border-radius: 10px; padding: 12px; margin: 12px 0; overflow-x: auto; font-size: 12px; line-height: 1.5; }
+
+        /* Статистика */
+        .stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 20px; }
+        .stat-card { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 14px; padding: 16px; }
+        .stat-card-value { font-size: 24px; font-weight: 800; margin-bottom: 4px; }
+        .stat-card-label { font-size: 12px; color: #888; }
+
         .admin-bot-list { margin-top: 16px; }
-        .admin-bot-item {
-            background: #1e1e1e;
-            border: 1px solid #2a2a2a;
-            border-radius: 12px;
-            padding: 14px;
-            margin-bottom: 8px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-        }
+        .admin-bot-item { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 12px; padding: 14px; margin-bottom: 8px; display: flex; justify-content: space-between; align-items: center; gap: 12px; }
         .admin-bot-info { flex: 1; }
         .admin-bot-name { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
         .admin-bot-price { color: #888; font-size: 13px; }
-        .admin-btn-sm {
-            width: 36px; height: 36px;
-            border-radius: 10px;
-            border: 1px solid #333;
-            background: #2a2a2a;
-            color: #fff;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s;
-        }
+        .admin-bot-actions { display: flex; gap: 6px; }
+        .admin-btn-sm { width: 34px; height: 34px; border-radius: 10px; border: 1px solid #333; background: #2a2a2a; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 14px; }
         .admin-btn-sm:active { transform: scale(0.9); }
-        .admin-btn-sm svg {
-            width: 18px; height: 18px;
-            stroke: #fff;
-            fill: none;
-            stroke-width: 2;
-        }
         .admin-btn-sm.link-btn { border-color: #4CAF50; }
-        .admin-btn-sm.link-btn svg { stroke: #4CAF50; }
 
-        .footer {
-            text-align: center;
-            padding: 20px;
-            color: #444;
-            font-size: 12px;
-            margin-top: auto;
-        }
+        .admin-section { margin-bottom: 24px; }
+        .admin-section-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; color: #fff; }
+
+        .footer { text-align: center; padding: 20px; color: #444; font-size: 12px; margin-top: auto; }
         .footer a { color: #666; text-decoration: none; }
 
         .page { display: none; flex-direction: column; flex: 1; }
         .page.active { display: flex; }
 
-        .bottom-nav {
-            position: sticky;
-            bottom: 0;
-            background: rgba(10,10,10,0.8);
-            backdrop-filter: blur(30px);
-            border-top: 1px solid rgba(255,255,255,0.06);
-            display: flex;
-            justify-content: center;
-            padding: 8px 20px;
-            padding-bottom: max(8px, env(safe-area-inset-bottom));
-            z-index: 100;
-        }
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 5px;
-            cursor: pointer;
-            padding: 10px 24px;
-        }
-        .nav-item svg {
-            width: 24px; height: 24px;
-            stroke: #555;
-            fill: none;
-            stroke-width: 1.8;
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
+        .bottom-nav { position: sticky; bottom: 0; background: rgba(10,10,10,0.8); backdrop-filter: blur(30px); border-top: 1px solid rgba(255,255,255,0.06); display: flex; justify-content: center; padding: 8px 20px; padding-bottom: max(8px, env(safe-area-inset-bottom)); z-index: 100; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; padding: 10px 20px; }
+        .nav-item svg { width: 24px; height: 24px; stroke: #555; fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
         .nav-item span { font-size: 11px; font-weight: 600; color: #555; }
         .nav-item.active svg { stroke: #fff; }
         .nav-item.active span { color: #fff; }
 
-        .modal-overlay {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.85);
-            z-index: 200;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
+        .modal-overlay { display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.85); z-index: 200; align-items: center; justify-content: center; padding: 20px; }
         .modal-overlay.active { display: flex; }
-        .modal-box {
-            background: #1e1e1e;
-            border: 1px solid #2a2a2a;
-            border-radius: 20px;
-            padding: 24px;
-            max-width: 360px;
-            width: 100%;
-            text-align: center;
-        }
-        .modal-box h3 { font-size: 20px; margin-bottom: 12px; }
-        .modal-box p { color: #aaa; font-size: 14px; margin-bottom: 20px; line-height: 1.5; }
-        .modal-box a {
-            display: block;
-            padding: 14px;
-            background: linear-gradient(135deg, #fff, #ccc);
-            border-radius: 12px;
-            color: #000;
-            font-weight: 700;
-            text-decoration: none;
-            margin-bottom: 10px;
-        }
-        .modal-box button {
-            width: 100%;
-            padding: 14px;
-            background: transparent;
-            border: 1px solid #333;
-            border-radius: 12px;
-            color: #fff;
-            font-size: 15px;
-            cursor: pointer;
-        }
+        .modal-box { background: #1e1e1e; border: 1px solid #2a2a2a; border-radius: 20px; padding: 24px; max-width: 360px; width: 100%; max-height: 80vh; overflow-y: auto; }
+        .modal-box h3 { font-size: 20px; margin-bottom: 16px; }
+        .modal-box p { color: #aaa; font-size: 14px; margin-bottom: 16px; line-height: 1.5; }
+        .modal-box a { display: block; padding: 14px; background: linear-gradient(135deg, #fff, #ccc); border-radius: 12px; color: #000; font-weight: 700; text-decoration: none; margin-bottom: 10px; text-align: center; }
+        .modal-box button { width: 100%; padding: 14px; background: transparent; border: 1px solid #333; border-radius: 12px; color: #fff; font-size: 15px; cursor: pointer; margin-top: 8px; }
 
-        .toast {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%) translateY(-100px);
-            background: #2a2a2a;
-            border: 1px solid #444;
-            border-radius: 12px;
-            padding: 12px 20px;
-            color: #fff;
-            font-size: 14px;
-            z-index: 300;
-            transition: transform 0.3s;
-        }
+        .form-group { margin-bottom: 14px; }
+        .form-group label { display: block; font-size: 13px; color: #888; margin-bottom: 6px; font-weight: 500; }
+        .form-group input, .form-group textarea, .form-group select { width: 100%; padding: 12px 14px; background: #2a2a2a; border: 1px solid #333; border-radius: 10px; color: #fff; font-size: 14px; outline: none; font-family: inherit; }
+        .form-group input:focus, .form-group textarea:focus { border-color: #666; }
+        .form-group textarea { resize: vertical; min-height: 80px; }
+
+        .stars-input { display: flex; gap: 6px; margin-bottom: 10px; }
+        .star-btn { background: none; border: none; font-size: 28px; cursor: pointer; color: #444; transition: color 0.15s; }
+        .star-btn.active { color: #ffb400; }
+
+        .modal-btn-primary { width: 100%; padding: 14px; background: linear-gradient(135deg, #fff, #ccc); border: none; border-radius: 12px; color: #000; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 8px; }
+        .modal-btn-secondary { width: 100%; padding: 14px; background: transparent; border: 1px solid #333; border-radius: 12px; color: #fff; font-size: 15px; cursor: pointer; margin-top: 8px; }
+
+        .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: #2a2a2a; border: 1px solid #444; border-radius: 12px; padding: 12px 20px; color: #fff; font-size: 14px; z-index: 300; transition: transform 0.3s; }
         .toast.show { transform: translateX(-50%) translateY(0); }
 
         @media (min-width: 768px) {
             .app { max-width: 100%; }
-            .header, .search-bar, .products-grid, .footer { max-width: 1200px; margin: 0 auto; }
+            .header, .search-bar, .products-grid, .footer, .tabs { max-width: 1200px; margin: 0 auto; }
             .header { padding: 24px 40px 20px; }
             .logo { font-size: 32px; }
             .search-bar { padding: 0 40px; margin-bottom: 24px; }
+            .tabs { padding: 0 40px; }
             .products-grid { padding: 0 40px; grid-template-columns: repeat(4, 1fr); gap: 20px; }
             .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.4); border-color: #444; }
             .footer { padding: 24px; margin-top: 40px; }
             .bottom-nav { max-width: 1200px; padding: 12px 40px; }
-            .nav-item { padding: 12px 32px; }
-            .profile-page, .orders-page, .admin-panel, .favorites-page { max-width: 800px; margin: 0 auto; padding: 20px 40px; }
+            .nav-item { padding: 12px 28px; }
+            .profile-page, .orders-page, .admin-panel, .favorites-page, .news-page, .reviews-page { max-width: 800px; margin: 0 auto; padding: 20px 40px; }
             .bot-detail-page { max-width: 600px; margin: 0 auto; padding: 20px 40px; }
             .favorites-grid { grid-template-columns: repeat(3, 1fr); }
         }
@@ -459,8 +185,12 @@
 
         <!-- КАТАЛОГ -->
         <div class="page active" id="page-catalog">
+            <div class="tabs">
+                <div class="tab active" data-tab="bots">Боты</div>
+                <div class="tab" data-tab="services">Услуги</div>
+            </div>
             <div class="search-bar">
-                <input type="text" placeholder="Поиск ботов..." id="search-input">
+                <input type="text" placeholder="Поиск..." id="search-input">
             </div>
             <div class="products-grid" id="products-grid"></div>
             <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
@@ -470,13 +200,16 @@
         <div class="page" id="page-bot-detail">
             <div class="bot-detail-page">
                 <div class="bot-detail-icon">
-                    <svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M12 8V4"/><circle cx="12" cy="3" r="1"/><circle cx="9" cy="14" r="1" fill="#666" stroke="none"/><circle cx="15" cy="14" r="1" fill="#666" stroke="none"/><path d="M9 18h6"/></svg>
+                    <svg viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M12 8V4"/><circle cx="9" cy="14" r="1" fill="#666" stroke="none"/><circle cx="15" cy="14" r="1" fill="#666" stroke="none"/><path d="M9 18h6"/></svg>
                 </div>
                 <h1 class="bot-detail-name" id="detail-name"></h1>
                 <div class="bot-detail-price" id="detail-price"></div>
+                <div class="bot-detail-rating" id="detail-rating"></div>
                 <div class="bot-detail-description" id="detail-description"></div>
                 <a href="https://t.me/z9hie" class="bot-detail-btn" target="_blank">Купить</a>
                 <button class="bot-detail-back" onclick="showPage('catalog')">Назад</button>
+
+                <div class="reviews-section" id="detail-reviews"></div>
             </div>
             <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
         </div>
@@ -499,6 +232,16 @@
             <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
         </div>
 
+        <!-- НОВОСТИ -->
+        <div class="page" id="page-news">
+            <div class="news-page">
+                <h2 class="page-title">Новости</h2>
+                <div class="news-tabs" id="news-tabs"></div>
+                <div id="news-list"></div>
+            </div>
+            <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
+        </div>
+
         <!-- ПРОФИЛЬ -->
         <div class="page" id="page-profile">
             <div class="profile-page">
@@ -515,6 +258,10 @@
                     </div>
                     <div class="stat-item" onclick="showPage('orders')">
                         <span class="stat-label">Мои заказы</span>
+                        <span class="stat-arrow">›</span>
+                    </div>
+                    <div class="stat-item" onclick="showPage('news')">
+                        <span class="stat-label">Новости</span>
                         <span class="stat-arrow">›</span>
                     </div>
                     <div class="stat-item" onclick="openSupport()">
@@ -534,21 +281,55 @@
         <div class="page" id="page-admin">
             <div class="admin-panel">
                 <h2 class="admin-title">Админ панель</h2>
-                <div class="admin-hint">
-                    <strong>Как добавить бота:</strong><br><br>
-                    1. Открой <code>index.html</code> на GitHub<br>
-                    2. Нажми редактировать<br>
-                    3. Найди массив <code>bots</code><br>
-                    4. Добавь бота:<br>
+
+                <div class="admin-section">
+                    <div class="admin-section-title">Статистика</div>
+                    <div class="stats-grid" id="admin-stats"></div>
+                </div>
+
+                <div class="admin-section">
+                    <div class="admin-section-title">Управление ботами</div>
+                    <div class="admin-hint">
+                        Добавляй ботов в массив <code>bots</code> в коде:<br>
 <pre>{
-  id: 3,
+  id: 4,
   name: "Название",
   price: 990,
   description: "Описание..."
 },</pre>
-                    5. Commit changes — готово!
+                    </div>
+                    <div class="admin-bot-list" id="admin-bot-list"></div>
                 </div>
-                <div class="admin-bot-list" id="admin-bot-list"></div>
+
+                <div class="admin-section">
+                    <div class="admin-section-title">Разрешить отзыв</div>
+                    <div class="form-group">
+                        <label>Username покупателя (без @)</label>
+                        <input type="text" id="reviewer-username" placeholder="username">
+                    </div>
+                    <div class="form-group">
+                        <label>Бот</label>
+                        <select id="reviewer-bot"></select>
+                    </div>
+                    <button class="modal-btn-primary" onclick="allowReview()">Разрешить</button>
+                </div>
+
+                <div class="admin-section">
+                    <div class="admin-section-title">Добавить новость</div>
+                    <div class="form-group">
+                        <label>Бот</label>
+                        <select id="news-bot"></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Заголовок</label>
+                        <input type="text" id="news-title" placeholder="Обновление 1.2">
+                    </div>
+                    <div class="form-group">
+                        <label>Текст</label>
+                        <textarea id="news-text" placeholder="Что нового..."></textarea>
+                    </div>
+                    <button class="modal-btn-primary" onclick="addNews()">Опубликовать</button>
+                </div>
             </div>
             <div class="footer">create by <a href="https://t.me/z9hie">@z9hie</a></div>
         </div>
@@ -557,7 +338,11 @@
         <nav class="bottom-nav">
             <div class="nav-item active" data-page="catalog">
                 <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><polyline points="9 21 9 14 15 14 15 21"/></svg>
-                <span>Главная</span>
+                <span>Каталог</span>
+            </div>
+            <div class="nav-item" data-page="news">
+                <svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v16a2 2 0 01-2 2zm0 0a2 2 0 01-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8V6z"/></svg>
+                <span>Новости</span>
             </div>
             <div class="nav-item" data-page="favorites">
                 <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
@@ -584,7 +369,26 @@
         </div>
     </div>
 
-    <!-- Toast -->
+    <!-- Модалка отзыва -->
+    <div class="modal-overlay" id="review-modal">
+        <div class="modal-box">
+            <h3 id="review-modal-title">Оставить отзыв</h3>
+            <div class="stars-input" id="stars-input">
+                <button class="star-btn" data-value="1">★</button>
+                <button class="star-btn" data-value="2">★</button>
+                <button class="star-btn" data-value="3">★</button>
+                <button class="star-btn" data-value="4">★</button>
+                <button class="star-btn" data-value="5">★</button>
+            </div>
+            <div class="form-group">
+                <label>Текст отзыва</label>
+                <textarea id="review-text" placeholder="Ваш отзыв..."></textarea>
+            </div>
+            <button class="modal-btn-primary" onclick="submitReview()">Отправить</button>
+            <button class="modal-btn-secondary" onclick="closeReviewModal()">Отмена</button>
+        </div>
+    </div>
+
     <div class="toast" id="toast"></div>
 
     <script>
@@ -594,73 +398,81 @@
         const ADMIN_ID = 5640325235;
 
         // ============================================
-        // СПИСОК БОТОВ — ДОБАВЛЯЙ СЮДА
+        // ДАННЫЕ
         // ============================================
         const bots = [
-            {
-                id: 1,
-                name: "Бот-модератор",
-                price: 119,
-                description: "Автомодерация чата в Telegram. Удаление спама, мата, рекламы по правилам. Настраивается под ваш чат за пару часов."
-            },
-            {
-                id: 2,
-                name: "Бот-связка",
-                price: 79,
-                description: "Бот обратной связи с настраиваемым меню. Анонимный режим, автоотправка заявок админу. Готов к работе за час."
-            },
-            {
-                id: 3,
-                name: "Бот-маркет",
-                price: 149,
-                description: "Готовый маркетплейс. Настрою под ваш бизнес за 1 день. От вас — только ТЗ по дизайну и товарам."
-            }
+            { id: 1, name: "Бот-модератор", price: 119, description: "Автомодерация чата в Telegram. Удаление спама, мата, рекламы по правилам. Настраивается под ваш чат за пару часов." },
+            { id: 2, name: "Бот-связка", price: 79, description: "Бот обратной связи с настраиваемым меню. Анонимный режим, автоотправка заявок админу. Готов к работе за час." },
+            { id: 3, name: "Бот-маркет", price: 149, description: "Готовый маркетплейс. Настрою под ваш бизнес за 1 день. От вас — только ТЗ по дизайну и товарам." }
         ];
-        // ============================================
-        // КОНЕЦ СПИСКА БОТОВ
-        // ============================================
+
+        const services = []; // Пока пусто, добавишь потом
 
         let favorites = JSON.parse(localStorage.getItem('qm_fav') || '[]');
         let orders = JSON.parse(localStorage.getItem('qm_orders') || '[]');
+        let reviews = JSON.parse(localStorage.getItem('qm_reviews') || '[]');
+        let news = JSON.parse(localStorage.getItem('qm_news') || '[]');
+        let allowedReviewers = JSON.parse(localStorage.getItem('qm_reviewers') || '[]');
+        let uniqueUsers = JSON.parse(localStorage.getItem('qm_users') || '[]');
+
+        let currentTab = 'bots';
+        let currentNewsBot = 'all';
+        let currentReviewBotId = null;
+        let selectedStars = 5;
+
         const user = tg?.initDataUnsafe?.user || { first_name: 'Гость', username: 'guest', id: 0 };
         const isAdmin = user.id === ADMIN_ID;
 
-        function showToast(msg) {
-            const t = document.getElementById('toast');
-            t.textContent = msg;
-            t.classList.add('show');
-            setTimeout(() => t.classList.remove('show'), 2000);
+        // Сохраняем уникального пользователя
+        if (user.id && !uniqueUsers.find(u => u.id === user.id)) {
+            uniqueUsers.push({ id: user.id, username: user.username, date: new Date().toISOString() });
+            localStorage.setItem('qm_users', JSON.stringify(uniqueUsers));
         }
 
+        function showToast(msg) { const t = document.getElementById('toast'); t.textContent = msg; t.classList.add('show'); setTimeout(() => t.classList.remove('show'), 2000); }
         function saveFav() { localStorage.setItem('qm_fav', JSON.stringify(favorites)); }
         function saveOrders() { localStorage.setItem('qm_orders', JSON.stringify(orders)); }
+        function saveReviews() { localStorage.setItem('qm_reviews', JSON.stringify(reviews)); }
+        function saveNews() { localStorage.setItem('qm_news', JSON.stringify(news)); }
+        function saveReviewers() { localStorage.setItem('qm_reviewers', JSON.stringify(allowedReviewers)); }
 
         function toggleFav(id) {
             const i = favorites.indexOf(id);
-            if (i > -1) {
-                favorites.splice(i, 1);
-                showToast('Удалено из избранного');
-            } else {
-                favorites.push(id);
-                showToast('Добавлено в избранное');
-            }
+            if (i > -1) { favorites.splice(i, 1); showToast('Удалено из избранного'); }
+            else { favorites.push(id); showToast('Добавлено в избранное'); }
             saveFav();
             renderProducts();
             renderFavorites();
         }
 
+        function getBotRating(botId) {
+            const botReviews = reviews.filter(r => r.botId === botId);
+            if (botReviews.length === 0) return null;
+            const avg = botReviews.reduce((s, r) => s + r.rating, 0) / botReviews.length;
+            return { avg: avg.toFixed(1), count: botReviews.length };
+        }
+
+        function renderStars(rating) {
+            const full = Math.floor(rating);
+            const half = rating % 1 >= 0.5 ? 1 : 0;
+            const empty = 5 - full - half;
+            return '★'.repeat(full) + (half ? '½' : '') + '☆'.repeat(empty);
+        }
+
         function renderProducts() {
             const grid = document.getElementById('products-grid');
             const search = document.getElementById('search-input').value.toLowerCase();
-            const filtered = bots.filter(b => b.name.toLowerCase().includes(search));
+            const items = currentTab === 'bots' ? bots : services;
+            const filtered = items.filter(b => b.name.toLowerCase().includes(search));
 
             if (filtered.length === 0) {
-                grid.innerHTML = '<div class="empty-state"><p>Боты не найдены</p></div>';
+                grid.innerHTML = '<div class="empty-state"><p>' + (currentTab === 'bots' ? 'Боты не найдены' : 'Услуги скоро появятся') + '</p></div>';
                 return;
             }
 
             grid.innerHTML = filtered.map(b => {
                 const isFav = favorites.includes(b.id);
+                const rating = getBotRating(b.id);
                 return `
                     <div class="product-card" onclick="showBotDetail(${b.id})">
                         <button class="product-fav ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); toggleFav(${b.id})">
@@ -668,6 +480,7 @@
                         </button>
                         <div class="product-name">${b.name}</div>
                         <div class="product-price">${b.price} ₽</div>
+                        ${rating ? `<div class="product-rating"><span class="stars">${renderStars(rating.avg)}</span> ${rating.avg} (${rating.count})</div>` : ''}
                     </div>
                 `;
             }).join('');
@@ -676,21 +489,20 @@
         function renderFavorites() {
             const grid = document.getElementById('favorites-grid');
             const favBots = bots.filter(b => favorites.includes(b.id));
-
-            if (favBots.length === 0) {
-                grid.innerHTML = '<div class="empty-state"><p>Нет избранных ботов</p></div>';
-                return;
-            }
-
-            grid.innerHTML = favBots.map(b => `
-                <div class="product-card" onclick="showBotDetail(${b.id})">
-                    <button class="product-fav active" onclick="event.stopPropagation(); toggleFav(${b.id})">
-                        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-                    </button>
-                    <div class="product-name">${b.name}</div>
-                    <div class="product-price">${b.price} ₽</div>
-                </div>
-            `).join('');
+            if (favBots.length === 0) { grid.innerHTML = '<div class="empty-state"><p>Нет избранных ботов</p></div>'; return; }
+            grid.innerHTML = favBots.map(b => {
+                const rating = getBotRating(b.id);
+                return `
+                    <div class="product-card" onclick="showBotDetail(${b.id})">
+                        <button class="product-fav active" onclick="event.stopPropagation(); toggleFav(${b.id})">
+                            <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                        </button>
+                        <div class="product-name">${b.name}</div>
+                        <div class="product-price">${b.price} ₽</div>
+                        ${rating ? `<div class="product-rating"><span class="stars">${renderStars(rating.avg)}</span> ${rating.avg}</div>` : ''}
+                    </div>
+                `;
+            }).join('');
         }
 
         function showBotDetail(id) {
@@ -699,18 +511,122 @@
             document.getElementById('detail-name').textContent = bot.name;
             document.getElementById('detail-price').textContent = `${bot.price} ₽`;
             document.getElementById('detail-description').textContent = bot.description || 'Описание отсутствует';
+
+            const rating = getBotRating(id);
+            document.getElementById('detail-rating').innerHTML = rating
+                ? `<span class="stars">${renderStars(rating.avg)}</span> ${rating.avg} · ${rating.count} отзывов`
+                : 'Пока нет отзывов';
+
+            renderBotReviews(id);
             showPage('bot-detail');
+        }
+
+        function renderBotReviews(botId) {
+            const container = document.getElementById('detail-reviews');
+            const botReviews = reviews.filter(r => r.botId === botId);
+            const bot = bots.find(b => b.id === botId);
+            const userReview = botReviews.find(r => r.userId === user.id);
+            const canReview = allowedReviewers.some(a => a.botId === botId && (a.username === user.username || a.userId === user.id));
+
+            let html = '<h3>Отзывы</h3>';
+
+            if (botReviews.length === 0) {
+                html += '<div class="empty-state" style="padding: 20px;"><p>Пока нет отзывов</p></div>';
+            } else {
+                html += botReviews.map(r => `
+                    <div class="review-item">
+                        <div class="review-header">
+                            <span class="review-author">@${r.username || 'anonim'}</span>
+                            <span class="review-stars">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span>
+                        </div>
+                        <div class="review-text">${r.text}</div>
+                        <div class="review-date">${r.date}</div>
+                    </div>
+                `).join('');
+            }
+
+            if (userReview) {
+                html += `<button class="btn-write-review" onclick="openReviewModal(${botId}, true)">Изменить отзыв</button>`;
+            } else if (canReview) {
+                html += `<button class="btn-write-review" onclick="openReviewModal(${botId}, false)">Оставить отзыв</button>`;
+            } else if (user.id) {
+                html += '<div style="text-align:center; color:#666; font-size:13px; margin-top:12px;">Отзыв могут оставить только покупатели</div>';
+            }
+
+            container.innerHTML = html;
+        }
+
+        function openReviewModal(botId, isEdit) {
+            currentReviewBotId = botId;
+            const bot = bots.find(b => b.id === botId);
+            document.getElementById('review-modal-title').textContent = isEdit ? 'Изменить отзыв' : `Отзыв: ${bot.name}`;
+
+            if (isEdit) {
+                const existing = reviews.find(r => r.botId === botId && r.userId === user.id);
+                if (existing) {
+                    selectedStars = existing.rating;
+                    document.getElementById('review-text').value = existing.text;
+                }
+            } else {
+                selectedStars = 5;
+                document.getElementById('review-text').value = '';
+            }
+
+            updateStarsUI();
+            document.getElementById('review-modal').classList.add('active');
+        }
+
+        function closeReviewModal() {
+            document.getElementById('review-modal').classList.remove('active');
+            currentReviewBotId = null;
+        }
+
+        function updateStarsUI() {
+            document.querySelectorAll('.star-btn').forEach(btn => {
+                btn.classList.toggle('active', parseInt(btn.dataset.value) <= selectedStars);
+            });
+        }
+
+        document.querySelectorAll('.star-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                selectedStars = parseInt(btn.dataset.value);
+                updateStarsUI();
+            });
+        });
+
+        function submitReview() {
+            if (!currentReviewBotId) return;
+            const text = document.getElementById('review-text').value.trim();
+            if (!text) { showToast('Напиши текст отзыва'); return; }
+
+            const existing = reviews.findIndex(r => r.botId === currentReviewBotId && r.userId === user.id);
+            const reviewData = {
+                botId: currentReviewBotId,
+                userId: user.id,
+                username: user.username,
+                rating: selectedStars,
+                text: text,
+                date: new Date().toLocaleDateString('ru-RU')
+            };
+
+            if (existing > -1) {
+                reviews[existing] = reviewData;
+                showToast('Отзыв обновлён');
+            } else {
+                reviews.push(reviewData);
+                showToast('Отзыв опубликован');
+            }
+
+            saveReviews();
+            closeReviewModal();
+            renderBotReviews(currentReviewBotId);
+            renderProducts();
         }
 
         function renderOrders() {
             const list = document.getElementById('orders-list');
             const userOrders = orders.filter(o => o.userId === user.id);
-
-            if (userOrders.length === 0) {
-                list.innerHTML = '<div class="empty-state"><p>У вас пока нет заказов</p></div>';
-                return;
-            }
-
+            if (userOrders.length === 0) { list.innerHTML = '<div class="empty-state"><p>У вас пока нет заказов</p></div>'; return; }
             list.innerHTML = userOrders.map(o => {
                 const bot = bots.find(b => b.id === o.botId);
                 if (!bot) return '';
@@ -725,38 +641,121 @@
             }).join('');
         }
 
-        function renderAdminBots() {
-            const container = document.getElementById('admin-bot-list');
-            if (bots.length === 0) {
-                container.innerHTML = '<div class="empty-state"><p>Нет ботов</p></div>';
+        function renderNews() {
+            const tabsContainer = document.getElementById('news-tabs');
+            const listContainer = document.getElementById('news-list');
+
+            tabsContainer.innerHTML = `<div class="news-tab ${currentNewsBot === 'all' ? 'active' : ''}" onclick="filterNews('all')">Все</div>` +
+                bots.map(b => `<div class="news-tab ${currentNewsBot === b.id ? 'active' : ''}" onclick="filterNews(${b.id})">${b.name}</div>`).join('');
+
+            const filtered = currentNewsBot === 'all' ? news : news.filter(n => n.botId === currentNewsBot);
+
+            if (filtered.length === 0) {
+                listContainer.innerHTML = '<div class="empty-state"><p>Новостей пока нет</p></div>';
                 return;
             }
-            container.innerHTML = '<h3 style="margin-bottom: 12px; font-size: 16px;">Боты (' + bots.length + '):</h3>' +
-                bots.map(b => `
+
+            listContainer.innerHTML = filtered.map(n => {
+                const bot = bots.find(b => b.id === n.botId);
+                return `
+                    <div class="news-item">
+                        <div class="news-title">${bot ? bot.name + ' — ' : ''}${n.title}</div>
+                        <div class="news-text">${n.text}</div>
+                        <div class="news-date">${n.date}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function filterNews(botId) {
+            currentNewsBot = botId;
+            renderNews();
+        }
+
+        function renderAdminStats() {
+            const container = document.getElementById('admin-stats');
+            const totalOrders = orders.length;
+            const totalReviews = reviews.length;
+            const totalUsers = uniqueUsers.length;
+            const totalRevenue = orders.reduce((s, o) => {
+                const bot = bots.find(b => b.id === o.botId);
+                return s + (bot ? bot.price : 0);
+            }, 0);
+
+            container.innerHTML = `
+                <div class="stat-card"><div class="stat-card-value">${totalUsers}</div><div class="stat-card-label">Пользователей</div></div>
+                <div class="stat-card"><div class="stat-card-value">${totalOrders}</div><div class="stat-card-label">Заказов</div></div>
+                <div class="stat-card"><div class="stat-card-value">${totalReviews}</div><div class="stat-card-label">Отзывов</div></div>
+                <div class="stat-card"><div class="stat-card-value">${totalRevenue}₽</div><div class="stat-card-label">Выручка</div></div>
+            `;
+        }
+
+        function renderAdminBots() {
+            const container = document.getElementById('admin-bot-list');
+            container.innerHTML = bots.map(b => {
+                const rating = getBotRating(b.id);
+                const orderCount = orders.filter(o => o.botId === b.id).length;
+                return `
                     <div class="admin-bot-item">
                         <div class="admin-bot-info">
                             <div class="admin-bot-name">${b.name}</div>
-                            <div class="admin-bot-price">${b.price} ₽</div>
+                            <div class="admin-bot-price">${b.price} ₽ · Заказов: ${orderCount}${rating ? ' · ★' + rating.avg : ''}</div>
                         </div>
                         <div class="admin-bot-actions">
-                            <button class="admin-btn-sm link-btn" onclick="copyOrderLink(${b.id})" title="Скопировать ссылку активации">
-                                <svg viewBox="0 0 24 24"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg>
-                            </button>
+                            <button class="admin-btn-sm link-btn" onclick="copyOrderLink(${b.id})" title="Ссылка активации"></button>
                         </div>
                     </div>
-                `).join('');
+                `;
+            }).join('');
+
+            // Заполняем селекты
+            const reviewerSelect = document.getElementById('reviewer-bot');
+            const newsSelect = document.getElementById('news-bot');
+            const options = bots.map(b => `<option value="${b.id}">${b.name}</option>`).join('');
+            reviewerSelect.innerHTML = options;
+            newsSelect.innerHTML = options;
+        }
+
+        function allowReview() {
+            const username = document.getElementById('reviewer-username').value.trim().replace('@', '');
+            const botId = parseInt(document.getElementById('reviewer-bot').value);
+            if (!username) { showToast('Введи username'); return; }
+
+            if (allowedReviewers.some(a => a.botId === botId && a.username === username)) {
+                showToast('Уже разрешён');
+                return;
+            }
+
+            allowedReviewers.push({ botId, username });
+            saveReviewers();
+            document.getElementById('reviewer-username').value = '';
+            showToast('Отзыв разрешён для @' + username);
+        }
+
+        function addNews() {
+            const botId = parseInt(document.getElementById('news-bot').value);
+            const title = document.getElementById('news-title').value.trim();
+            const text = document.getElementById('news-text').value.trim();
+            if (!title || !text) { showToast('Заполни все поля'); return; }
+
+            news.unshift({
+                botId,
+                title,
+                text,
+                date: new Date().toLocaleDateString('ru-RU')
+            });
+            saveNews();
+            document.getElementById('news-title').value = '';
+            document.getElementById('news-text').value = '';
+            showToast('Новость опубликована');
         }
 
         function copyOrderLink(botId) {
             const bot = bots.find(b => b.id === botId);
             if (!bot) return;
-            const baseUrl = window.location.origin + window.location.pathname;
-            const link = `${baseUrl}?order=${botId}`;
-
+            const link = `${window.location.origin}${window.location.pathname}?order=${botId}`;
             if (navigator.clipboard) {
-                navigator.clipboard.writeText(link).then(() => {
-                    showToast('Ссылка скопирована. Отправь её пользователю');
-                });
+                navigator.clipboard.writeText(link).then(() => showToast('Ссылка скопирована'));
             } else {
                 const ta = document.createElement('textarea');
                 ta.value = link;
@@ -777,15 +776,11 @@
                 if (bot) {
                     const exists = orders.find(o => o.userId === user.id && o.botId === botId);
                     if (!exists) {
-                        orders.push({
-                            userId: user.id,
-                            botId: botId,
-                            date: new Date().toLocaleDateString('ru-RU')
-                        });
+                        orders.push({ userId: user.id, botId, date: new Date().toLocaleDateString('ru-RU') });
                         saveOrders();
-                        showToast(`"${bot.name}" добавлен в ваши заказы`);
+                        showToast(`"${bot.name}" добавлен в заказы`);
                     } else {
-                        showToast('Этот бот уже в ваших заказах');
+                        showToast('Уже в заказах');
                     }
                     window.history.replaceState({}, '', window.location.pathname);
                 }
@@ -800,7 +795,8 @@
             if (navItem) navItem.classList.add('active');
             if (name === 'orders') renderOrders();
             if (name === 'favorites') renderFavorites();
-            if (name === 'admin') renderAdminBots();
+            if (name === 'admin') { renderAdminStats(); renderAdminBots(); }
+            if (name === 'news') renderNews();
             window.scrollTo(0, 0);
         }
 
@@ -808,17 +804,21 @@
             item.addEventListener('click', () => showPage(item.dataset.page));
         });
 
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentTab = tab.dataset.tab;
+                renderProducts();
+            });
+        });
+
         document.getElementById('search-input').addEventListener('input', renderProducts);
 
-        function openSupport() {
-            document.getElementById('support-modal').classList.add('active');
-        }
-        function closeSupport() {
-            document.getElementById('support-modal').classList.remove('active');
-        }
-        document.getElementById('support-modal').addEventListener('click', (e) => {
-            if (e.target === e.currentTarget) closeSupport();
-        });
+        function openSupport() { document.getElementById('support-modal').classList.add('active'); }
+        function closeSupport() { document.getElementById('support-modal').classList.remove('active'); }
+        document.getElementById('support-modal').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeSupport(); });
+        document.getElementById('review-modal').addEventListener('click', (e) => { if (e.target === e.currentTarget) closeReviewModal(); });
 
         document.getElementById('profile-name').textContent = user.first_name || 'Пользователь';
         document.getElementById('profile-username').textContent = '@' + (user.username || 'user');
